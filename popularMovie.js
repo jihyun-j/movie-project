@@ -148,6 +148,7 @@ const getMovieAge = (movieId) => {
 	.then(response => response.json())
 	.then(response => {
 		response.results.map((res) => {
+			console.log(res)
 			switch (res.iso_3166_1) {
 				case "KR":
 					age = res.release_dates[0].certification;
@@ -179,7 +180,7 @@ const movieInfo = (movieId) => {
 		let movieTitle = response.title;
 		let voteAverage = response.vote_average;
 		let overView = response.overview;
-		let runTime = response.runtime;
+		let runTime = `${Math.floor(response.runtime/60)}시간 ${response.runtime%60}분`;
 		let movieDate = `개봉일 : ${response.release_date}`;
 		let movieAge = await getMovieAge(movieId);
 
