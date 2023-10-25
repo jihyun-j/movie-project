@@ -1,0 +1,177 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+*{font-family: 'Pretendard-Regular';}
+body{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem auto;
+}
+
+header .logo > img {
+    width: 35%;
+}
+header .searchBox{
+
+}
+
+header .searchBox .searchForm .searchInput{
+    position: relative;
+    width: 200px;
+    display: inline-block;
+}
+header .searchBox .searchForm .searchInput input[type="text"]{
+    width: 190px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background: transparent;
+    padding:0 0 5px 10px;
+    position: relative;
+    z-index: 5;
+    font-size: 1.2rem;
+}
+header .searchBox .searchForm .searchInput input[type="text"]::placeholder{
+    color: transparent;
+}
+header .searchBox .searchForm .searchInput input[type="text"]:focus{
+    outline: none;
+}
+header .searchBox .searchForm .searchInput label{
+    position: absolute;
+  color: #aaa;
+  left: 10px;
+  font-size: 1rem;
+  bottom: 8px;
+  transition: all .2s;
+}
+header .searchBox .searchForm .searchInput span{
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #666;
+    height: 2px;
+    border-radius: 2px;
+    transition:0.5s;
+}
+
+header .searchBox .searchForm .searchInput input:focus ~ label, 
+header .searchBox .searchForm .searchInput input:valid ~ label {
+    font-size: 0.8rem;
+    bottom: 110%;
+    color: #666;
+    font-weight: bold;
+  }
+  
+header .searchBox .searchForm .searchInput input:focus ~ span, 
+header .searchBox .searchForm .searchInput input:valid ~ span {
+    width: 100%;
+  }
+header .searchBox .searchForm .searchBtn{
+    cursor: pointer;
+    border: 1px solid #2A2C32;
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    border-radius: 20px;
+}
+header .searchBox .searchForm .searchBtn:hover{
+    background-color: #2A2C32;
+    color: #fff;
+}
+
+header .searchBox .searchForm .modal{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw; 
+    height: 100vh; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+    display: none;
+    z-index: 5;
+}
+
+header .searchBox .searchForm .modal .modalContent{
+    background: #fff;
+    height: 25vh;    
+    padding: 0 5%;
+    border-radius: 25px;
+    box-shadow: 0px 0px 30px 0px #a51644;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+header .searchBox .searchForm .modal .modalContent .modalHeader{
+    text-align: right;
+}
+header .searchBox .searchForm .modal .modalContent .modalBody,
+header .searchBox .searchForm .modal .modalContent .modalFooter{
+    text-align: center;
+}
+
+header .searchBox .searchForm .modal .modalContent .modalBody .searchInput > input::placeholder{
+    color: #ccc;
+    font-size: 0.7rem;
+    text-indent: 20px;
+}
+header .searchBox .searchForm .modal .modalContent .modalBody .searchInput > input:focus::placeholder{
+    color: transparent;
+}
+header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck{
+    border-radius: 20px;
+    padding: 0.3rem;
+}
+
+.movieList{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.movieList .movieCard{
+    max-width: 24%;
+    width: 100%;
+    margin: 0 1rem 1rem 0;
+    cursor: pointer;
+}
+.movieList .movieCard:nth-of-type(4n){
+    margin: 0;
+}
+
+.movieList .movieCard .moviePoster > img{
+    width: 100%;
+}
+
+.movieList .movieCard .movieTitle{
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.5;
+}
+.movieList .movieCard .voteAverage{
+    font-weight: 500;
+}
+.movieList .movieCard .overView{
+    width: 100%;
+    display: -webkit-box;
+    word-wrap: break-word;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    line-height: 1.7;
+    font-weight: 400;
+}
