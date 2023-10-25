@@ -143,12 +143,12 @@ const findMovie = (searchParams) => {
 }
 
 const getMovieAge = (movieId) => {
-	let age;	
-	fetch(`${url}/${movieId}/release_dates`, options)
+	let age;
+	return fetch(`${url}/${movieId}/release_dates`, options)
 	.then(response => response.json())
 	.then(response => {
-		response.results.map(async (res) => {
-			 switch (res.iso_3166_1) {
+		response.results.map((res) => {
+			switch (res.iso_3166_1) {
 				case "KR":
 					age = res.release_dates[0].certification;
 					console.log("KR:",age)
@@ -162,18 +162,18 @@ const getMovieAge = (movieId) => {
 					break;
 			}
 			console.log(age)
-			return await age;
+			;
 		})
+		return age;
 	})
-	.catch(err => console.error(err));
-	console.log(age)
+	.catch(err => console.log(err));
 }
 
 
 const movieInfo = (movieId) => {
 	fetch(`${url}/${movieId}?language=ko-KR&page=1`, options)
 	  .then(response => response.json())
-	  .then(response => {
+	  .then(async response => {
 		console.log(response)
 		let postImg = `${imgUrl}${response.poster_path}`
 		let movieTitle = response.title;
@@ -181,7 +181,7 @@ const movieInfo = (movieId) => {
 		let overView = response.overview;
 		let runTime = response.runtime;
 		let movieDate = `개봉일 : ${response.release_date}`;
-		let movieAge = getMovieAge(movieId);
+		let movieAge = await getMovieAge(movieId);
 
 		document.querySelector(`.movieInfo > .moviePoster > img`).src = postImg
 		document.querySelector(`.movieInfo .movieContent .movieTitle`).textContent = movieTitle
