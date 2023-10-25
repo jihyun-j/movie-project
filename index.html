@@ -32,10 +32,10 @@
                     onclick="searchQuery()">검색</button>
                     <button  class="searchBtn" 
                     onclick="scoreModal()">🍅 검색</button>
-                    <div class="modal" id="modal">
+                    <div class="modal" id="searchModal">
                         <div class="modalContent">
                             <div class="modalHeader">
-                                <span class="closeBtn" id="closeBtn" onclick="closeModal()">X</span>
+                                <span class="closeBtn" id="closeBtn" onclick="scoreModalClose()">X</span>
                             </div>
                             <div class="modalBody">
                                 <div class="searchInput">
@@ -53,10 +53,33 @@
                             </div>
                         </div>
                     </div>
+
+                    
                 </div>
             </div>
         </header>
         <div class="container">
+            <div class="modal" id="infoModal">
+                <div class="modalContent">
+                    <div class="modalHeader">
+                        <span class="closeBtn" id="closeBtn" onclick="infoModalClose()">X</span>
+                    </div>
+                    <div class="modalBody">
+                        <div class="searchInput">
+                            <input type="text" id="score" required placeholder="&nbsp;&nbsp;토마토점수를 입력해주세요!">
+                            <label for="score">🍅</label>
+                            <span></span>
+                        </div>
+                        <select name="scoreCheck" id="scoreCheck">
+                            <option value="up">이상</option>
+                            <option value="down">이하</option>
+                        </select>
+                    </div>
+                    <div class="modalFooter">
+                        <button class="searchBtn" onclick="scoreSearch()">확인</button>
+                    </div>
+                </div>
+            </div>
             <div class="movieList" id="movieList">
                 <!-- JS를 통해 영화정보 추가 -->
             </div>

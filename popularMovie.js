@@ -16,19 +16,29 @@ window.addEventListener('load', () => {
 })
 let movieList = [];
 
+//모달 보이게
 const scoreModal = () => {
-	document.querySelector('#modal').style.display = 'block';
+	document.querySelector('#searchModal').style.display = 'block';
 }
-const closeModal = () => {
-	document.querySelector('#modal').style.display = 'none';
-	document.querySelector('#score').value = ``;
+const infoModalOpen = (movieId, postImg, movieTitle, voteAverage, overView) => {
+	console.log("클릭")
+	document.querySelector('#infoModal').style.display = 'block';
 }
 
+//모달 닫고 모달안에 있는 input 데이터 초기화
+const scoreModalClose = () => {
+	document.querySelector('#searchModal').style.display = 'none';
+	document.querySelector('#score').value = ``;
+}
+const infoModalClose = () => {
+	document.querySelector('#infoModal').style.display = 'none';
+}
+	
 const makeMovieCard = (movieId, postImg, movieTitle, voteAverage, overView) => {
 	const movieCard = document.createElement('div');
 
 	movieCard.className = 'movieCard';
-	movieCard.addEventListener('click', () => alert(`Movie id : ${movieId}`))
+	movieCard.addEventListener('click', () => infoModalOpen(movieId, postImg, movieTitle, voteAverage, overView))
 	movieCard.innerHTML = `<div class="moviePoster">
 								<img src=${postImg} alt="">
 							</div>
@@ -78,7 +88,7 @@ const scoreSearch = () => {
 	const scoreFilter = movieList;
 	
 	clearCard()
-	closeModal()
+	scoreModalClose()
 
 	scoreFilter.filter((res) => {
 		let score =  res.vote_average

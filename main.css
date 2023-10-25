@@ -175,3 +175,53 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck{
     line-height: 1.7;
     font-weight: 400;
 }
+
+
+#infoModal.modal{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw; 
+    height: 100vh; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+    display: none;
+    z-index: 5;
+}
+
+#infoModal.modal .modalContent{
+    background: #fff;
+    height: 25vh;    
+    padding: 0 5%;
+    border-radius: 25px;
+    box-shadow: 0px 0px 30px 0px #a51644;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#infoModal.modal .modalContent .modalHeader{
+    text-align: right;
+}
+#infoModal.modal .modalContent .modalBody,
+#infoModal.modal .modalContent .modalFooter{
+    text-align: center;
+}
+
+#infoModal.modal .modalContent .modalBody .searchInput > input::placeholder{
+    color: #ccc;
+    font-size: 0.7rem;
+    text-indent: 20px;
+}
+#infoModal.modal .modalContent .modalBody .searchInput > input:focus::placeholder{
+    color: transparent;
+}
+#infoModal.modal .modalContent .modalBody #scoreCheck{
+    border-radius: 20px;
+    padding: 0.3rem;
+}
