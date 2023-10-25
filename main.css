@@ -222,6 +222,7 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck{
 #infoModal.modal .modalContent .modalBody .movieInfo{
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 #infoModal.modal .modalContent .modalBody .movieInfo .moviePoster{
     display: inline-block;
@@ -234,6 +235,7 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck{
 #infoModal.modal .modalContent .modalBody .movieInfo .movieContent{
     display: inline-block;
     text-align: left;
+    width: calc(100% - 285px);
 }
 #infoModal.modal .modalContent .modalBody .movieInfo .movieContent .movieTitle{
     font-size: 2.5rem;
