@@ -119,6 +119,10 @@ header .searchBox .searchForm .modal .modalContent{
 header .searchBox .searchForm .modal .modalContent .modalHeader{
     text-align: right;
 }
+header .searchBox .searchForm .modal .modalContent .modalHeader .closeBtn{
+    cursor: pointer;
+}
+
 header .searchBox .searchForm .modal .modalContent .modalBody,
 header .searchBox .searchForm .modal .modalContent .modalFooter{
     text-align: center;
@@ -191,8 +195,7 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck{
 
 #infoModal.modal .modalContent{
     background: #fff;
-    height: 25vh;    
-    padding: 0 5%;
+    padding: 1.5rem 2rem;
     border-radius: 25px;
     box-shadow: 0px 0px 30px 0px #a51644;
     display: flex;
@@ -208,20 +211,70 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck{
 #infoModal.modal .modalContent .modalHeader{
     text-align: right;
 }
+#infoModal.modal .modalContent .modalHeader .closeBtn{
+    cursor: pointer;
+}
 #infoModal.modal .modalContent .modalBody,
 #infoModal.modal .modalContent .modalFooter{
     text-align: center;
 }
 
-#infoModal.modal .modalContent .modalBody .searchInput > input::placeholder{
-    color: #ccc;
-    font-size: 0.7rem;
-    text-indent: 20px;
+#infoModal.modal .modalContent .modalBody .movieInfo{
+    display: flex;
+    flex-wrap: wrap;
 }
-#infoModal.modal .modalContent .modalBody .searchInput > input:focus::placeholder{
-    color: transparent;
+#infoModal.modal .modalContent .modalBody .movieInfo .moviePoster{
+    display: inline-block;
+    margin: 0 2rem 0 0;
 }
-#infoModal.modal .modalContent .modalBody #scoreCheck{
+#infoModal.modal .modalContent .modalBody .movieInfo .moviePoster > img{
+    max-width: 250px;
+    width: 100%;
+}
+#infoModal.modal .modalContent .modalBody .movieInfo .movieContent{
+    display: inline-block;
+    text-align: left;
+}
+#infoModal.modal .modalContent .modalBody .movieInfo .movieContent .movieTitle{
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+#infoModal.modal .modalContent .modalBody .details{
+
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu {
+    margin: 2rem auto 0;
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tab {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 0;
+    
+}
+
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tab .tabList{
+    list-style-type: none;
+    cursor: pointer;
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper{
+    margin-top: 20px;
+    background: green;
     border-radius: 20px;
-    padding: 0.3rem;
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent {
+    padding: 20px;
+    color: #fff;
+    font-size: 24px;
+    display: none;
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tab .tabList.active {
+    background: green;
+    color: #fff;
+    cursor: auto;
+}
+
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent.active {
+    display: block;
 }

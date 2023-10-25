@@ -20,9 +20,9 @@ let movieList = [];
 const scoreModal = () => {
 	document.querySelector('#searchModal').style.display = 'block';
 }
-const infoModalOpen = (movieId, postImg, movieTitle, voteAverage, overView) => {
-	console.log("클릭")
+const infoModalOpen = (movieId) => {
 	document.querySelector('#infoModal').style.display = 'block';
+	movieInfo(movieId)
 }
 
 //모달 닫고 모달안에 있는 input 데이터 초기화
@@ -38,7 +38,7 @@ const makeMovieCard = (movieId, postImg, movieTitle, voteAverage, overView) => {
 	const movieCard = document.createElement('div');
 
 	movieCard.className = 'movieCard';
-	movieCard.addEventListener('click', () => infoModalOpen(movieId, postImg, movieTitle, voteAverage, overView))
+	movieCard.addEventListener('click', () => infoModalOpen(movieId))
 	movieCard.innerHTML = `<div class="moviePoster">
 								<img src=${postImg} alt="">
 							</div>
@@ -141,3 +141,84 @@ const findMovie = (searchParams) => {
   	.catch(err => console.error(err));
 
 }
+
+const getMovieAge = (movieId) => {
+	let age;	
+	fetch(`${url}/${movieId}/release_dates`, options)
+	.then(response => response.json())
+	.then(response => {
+		response.results.map(async (res) => {
+			 switch (res.iso_3166_1) {
+				case "KR":
+					age = res.release_dates[0].certification;
+					console.log("KR:",age)
+					break;
+			
+				case "US":
+					age = res.release_dates[0].certification;
+					console.log("US:",age)
+					break;	
+				default:
+					break;
+			}
+			console.log(age)
+			return await age;
+		})
+	})
+	.catch(err => console.error(err));
+	console.log(age)
+}
+
+
+const movieInfo = (movieId) => {
+	fetch(`${url}/${movieId}?language=ko-KR&page=1`, options)
+	  .then(response => response.json())
+	  .then(response => {
+		console.log(response)
+		let postImg = `${imgUrl}${response.poster_path}`
+		let movieTitle = response.title;
+		let voteAverage = response.vote_average;
+		let overView = response.overview;
+		let runTime = response.runtime;
+		let movieDate = `개봉일 : ${response.release_date}`;
+		let movieAge = getMovieAge(movieId);
+
+		document.querySelector(`.movieInfo > .moviePoster > img`).src = postImg
+		document.querySelector(`.movieInfo .movieContent .movieTitle`).textContent = movieTitle
+		document.querySelector(`.movieInfo .movieSubInfo .movieDate`).textContent = movieDate
+		document.querySelector(`.movieInfo .movieSubInfo .movieRuntime`).textContent = runTime
+		document.querySelector(`.movieInfo .movieSubInfo .movieAge`).textContent = movieAge
+		document.querySelector(`.movieInfo .movieContent .overView`).textContent = overView
+		document.querySelector(`.movieInfo .movieSubInfo .movieAge`).textContent = movieAge
+		console.log(movieAge)
+		// response.map((res) => {
+		// 	
+
+		// })
+
+		const tabList = document.querySelectorAll(`.tabList`)
+		const tabContent = document.querySelectorAll(`.tabContent`)
+
+		console.log(tabList)
+		tabList.forEach((tab,idx) => {
+			tab.addEventListener("click", () => {
+				tabContent.forEach((content) => {
+					content.classList.remove(`active`)
+				})
+				tabList.forEach((list) => {
+					list.classList.remove(`active`)
+				})
+				tabList[idx].classList.add(`active`)
+				tabContent[idx].classList.add(`active`)
+			})
+		})
+
+	})
+	.catch(err => console.error(err));
+
+}
+
+// const tabList = document.querySelectorAll(`.tabList`)
+// const tabContent = document.querySelectorAll(`.tabContent`)
+
+// console.log(tabList)
