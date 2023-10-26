@@ -94,29 +94,31 @@ const scoreSearch = () => {
 	
 	clearCard()
 	scoreModalClose()
-  
-  scoreFilter.filter((res) => {
-    let score = res.vote_average;
-    let movieId = res.id;
-    let postImg =
-      res.poster_path === null ? emptyImg : ` ${imgUrl}${item.poster_path}`;
-    let movieTitle = res.title;
-    let overView = res.overview;
 
-    switch (scoreCheck) {
-      case "up":
-        if (score >= inputScore) {
-          makeMovieCard(movieId, postImg, movieTitle, score, overView);
-        }
-        break;
-      case "down":
-        if (score <= inputScore) {
-          makeMovieCard(movieId, postImg, movieTitle, score, overView);
-        }
-        break;
-    }
-  });
-};
+	scoreFilter.filter((res) => {
+		let score =  res.vote_average
+
+		let movieId = res.id
+		let postImg = `${imgUrl}${res.poster_path}`
+		let movieTitle = res.title;
+		let overView = res.overview;
+
+		switch (scoreCheck) {
+			case "up": 
+			if (score >= inputScore) {
+				makeMovieCard(movieId,postImg,movieTitle,score,overView);
+			}
+			break;
+			case "down": 
+			if (score <= inputScore) {
+				makeMovieCard(movieId,postImg,movieTitle,score,overView);
+			}
+			break;
+		}
+	})
+
+}
+
 
 const clearCard = () => {
   const cardList = document.querySelectorAll(`.movieCard `);

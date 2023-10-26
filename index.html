@@ -112,19 +112,49 @@
                                     </div>
                                     <div></div>
                                 </div>
-                                <div class="tabContent">관람평 내용</div>
+                                <div class="tabContent"> 
+                                    <div class="formcontainer">
+                                        <form id="reviewForm" class="reviewForm">
+                                            <div class="reviewInput">
+                                                <div class="idPw">
+                                                    <div class="w-50">
+                                                        <label for="이름">닉네임</label>
+                                                        <input class="formInput" type="text" id="name" name="name" placeholder="닉네임">
+                                                    </div>
+                                                    <div class="w-50">
+                                                        <label for="password">비밀번호</label>
+                                                        <input class="formInput" type="password" id="password" name="password" placeholder="비밀번호">
+                                                    </div>
+                                                </div>
+                                    
+                                                <div class="idPw">
+                                                    <div style="flex-grow: 4";>
+                                                        <div class="w-100" >
+                                                            <label for="content">리뷰 내용</label><br>
+                                                            <textarea class="formInput" type="text" id="content" name="content" placeholder="후기를 작성해주세요!"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div >
+                                                        <input type="button" class="reviewBtn" value="리뷰 제출" onclick="saveReview()">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div class="reviewList" id="reviewList">
+                                            <div class="listview" id=""></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modalFooter">
-                </div>
+                <div class="modalFooter"></div>
             </div>
         </div>
         <div class="movieList" id="movieList">
             <!-- JS를 통해 영화정보 추가 -->
         </div>
-    </div>
     <footer></footer>
   </body>
 </html>
