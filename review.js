@@ -1,14 +1,5 @@
-const movieId = getMovieIdFromURL( );
-function getMovieIdFromURL() {
-    const url = window.location.href;
-    const urlParts = url.split(`https://api.themoviedb.org/3/movie/`);
-    // 예를 들어, URL이 "http://example.com/movies.html?id=123"인 경우,
-    // "movies.html" 다음 부분이 식별자일 수 있다.
-    const movieId = urlParts[urlParts.length - 1];
-    return movieId;
-  }
-
-
+movieInfo
+console.log(movieInfo);
 
 function saveReview() {
     const name = document.getElementById('name').value;
@@ -17,7 +8,7 @@ function saveReview() {
     const 작성시간 = new Date().toLocaleString();
 
 
-    let 댓글 = JSON.parse(localStorage.getItem(`댓글_${movieId}`) || '[]');
+    let 댓글 = JSON.parse(localStorage.getItem('리뷰') || '[]');
 
     let 입력된댓글 = document.getElementById('content').value;
 
@@ -34,13 +25,13 @@ function saveReview() {
         };
         댓글.push(newComment);
 
-        localStorage.setItem(`댓글_${movieId}_${new Date().getTime()}`, JSON.stringify(댓글));
+        localStorage.setItem('리뷰', JSON.stringify(댓글));
         showComments();
     }
 
 }
 function showComments() {
-    let 새로운리뷰 = JSON.parse(localStorage.getItem(`댓글_${movieId}`) || '[]');
+    let 새로운리뷰 = JSON.parse(localStorage.getItem('리뷰') || '[]');
     let 리뷰리스트 = document.getElementById('reviewList');
     리뷰리스트.innerHTML = '';
 
@@ -64,11 +55,11 @@ function showComments() {
     });
 }
 function deleteComment(index) {
-    let 댓글 = JSON.parse(localStorage.getItem('댓글')) || [];
+    let 댓글 = JSON.parse(localStorage.getItem('리뷰')) || [];
     let 비번 = prompt('비번입력하세여');
     if(비번=== 댓글[index].비밀번호){
     댓글.splice(index, 1);
-    localStorage.setItem(`댓글_${movieId}`, JSON.stringify(댓글));
+    localStorage.setItem('리뷰', JSON.stringify(댓글));
     alert('삭제 완료 !')
     showComments();}
     else alert('비밀번호 입력해야 지울수 있어요 !')
