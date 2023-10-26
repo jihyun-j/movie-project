@@ -16,6 +16,9 @@ window.addEventListener('load', () => {
 })
 let movieList = [];
 
+//키보드 이벤트
+
+
 //모달 보이게
 const scoreModal = () => {
 	document.querySelector('#searchModal').style.display = 'block';
@@ -33,6 +36,23 @@ const scoreModalClose = () => {
 const infoModalClose = () => {
 	document.querySelector('#infoModal').style.display = 'none';
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const infoModal = document.querySelector('#infoModal');
+
+    infoModal.addEventListener('click', (event) => {
+        if (event.target === infoModal) {
+            infoModalClose(); // 모달을 닫는 함수 호출
+        }
+    });
+    const exitKey = (event) => {
+        if (event.key === 'Escape' || event.key === 'Esc') {
+            infoModalClose();
+        }
+    }
+
+    document.addEventListener('keyup', exitKey);
+});
 	
 const makeMovieCard = (movieId, postImg, movieTitle, voteAverage, overView) => {
 	const movieCard = document.createElement('div');
@@ -148,11 +168,12 @@ const getMovieAge = (movieId) => {
 	return fetch(`${url}/${movieId}/release_dates`, options)
 	.then(response => response.json())
 	.then(response => {
+        console.log(response);
 		response.results.map((res) => {
 			switch (res.iso_3166_1) {
 				case "KR":
 					if (!age) {
-						age = res.release_dates[0].certification;
+						age = res.release_dates[res.release_dates.length - 1].certification;
 					}
 					console.log("KR:",age)
 					return age;
@@ -160,7 +181,7 @@ const getMovieAge = (movieId) => {
 			
 				case "US":
 					if (!age) {
-						age = res.release_dates[0].certification;
+						age = res.release_dates[res.release_dates.length - 1].certification;
 					}
 					console.log("US:",age)
 					return age;

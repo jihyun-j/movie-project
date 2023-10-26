@@ -271,18 +271,17 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck{
 }
 #infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper{
     margin-top: 20px;
-    background: green;
-    border-radius: 20px;
+    background: #bdbdbd;
 }
 #infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent {
-    padding: 20px;
-    color: #fff;
+    color: #000;
     font-size: 24px;
     display: none;
+    text-align: left;
 }
 #infoModal.modal .modalContent .modalBody .details .tabMenu .tab .tabList.active {
-    background: green;
-    color: #fff;
+    background: #bdbdbd;
+    color: #000;
     cursor: auto;
 }
 
