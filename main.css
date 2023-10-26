@@ -121,6 +121,10 @@ header .searchBox .searchForm .modal .modalContent {
 header .searchBox .searchForm .modal .modalContent .modalHeader {
   text-align: right;
 }
+header .searchBox .searchForm .modal .modalContent .modalHeader .closeBtn{
+    cursor: pointer;
+}
+
 header .searchBox .searchForm .modal .modalContent .modalBody,
 header .searchBox .searchForm .modal .modalContent .modalFooter {
   text-align: center;
@@ -203,4 +207,112 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
   overflow: hidden;
   line-height: 1.7;
   font-weight: 400;
+}
+
+#infoModal.modal{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw; 
+    height: 100vh; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+    display: none;
+    z-index: 5;
+}
+
+#infoModal.modal .modalContent{
+    background: #fff;
+    padding: 1.5rem 2rem;
+    border-radius: 25px;
+    box-shadow: 0px 0px 30px 0px #a51644;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#infoModal.modal .modalContent .modalHeader{
+    text-align: right;
+}
+#infoModal.modal .modalContent .modalHeader .closeBtn{
+    cursor: pointer;
+}
+#infoModal.modal .modalContent .modalBody,
+#infoModal.modal .modalContent .modalFooter{
+    text-align: center;
+}
+
+#infoModal.modal .modalContent .modalBody .movieInfo{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#infoModal.modal .modalContent .modalBody .movieInfo .moviePoster{
+    display: inline-block;
+    margin: 0 2rem 0 0;
+}
+#infoModal.modal .modalContent .modalBody .movieInfo .moviePoster > img{
+    max-width: 250px;
+    width: 100%;
+}
+#infoModal.modal .modalContent .modalBody .movieInfo .movieContent{
+    display: inline-block;
+    text-align: left;
+    width: calc(100% - 285px);
+}
+#infoModal.modal .modalContent .modalBody .movieInfo .movieContent .movieTitle{
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+#infoModal.modal .modalContent .modalBody .movieInfo .movieContent .movieSubInfo {
+    line-height: 1.5;
+    margin: 0 0 5%;
+}
+#infoModal.modal .modalContent .modalBody .movieInfo .movieContent .movieSubInfo .movieAge{
+    border: 1px solid #0c0c0c;
+    padding: 0.1rem 0.2rem 0 0.2rem;
+    border-radius: 2px;
+}
+#infoModal.modal .modalContent .modalBody .details{
+
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu {
+    margin: 2rem auto 0;
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tab {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 0;
+    
+}
+
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tab .tabList{
+    list-style-type: none;
+    cursor: pointer;
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper{
+    margin-top: 20px;
+    background: green;
+    border-radius: 20px;
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent {
+    padding: 20px;
+    color: #fff;
+    font-size: 24px;
+    display: none;
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tab .tabList.active {
+    background: green;
+    color: #fff;
+    cursor: auto;
+}
+
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent.active {
+    display: block;
 }
