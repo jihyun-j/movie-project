@@ -194,6 +194,7 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck{
 }
 
 #infoModal.modal .modalContent{
+    width: 50%;
     background: #fff;
     padding: 1.5rem 2rem;
     border-radius: 25px;
