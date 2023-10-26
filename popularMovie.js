@@ -75,7 +75,7 @@ fetch(`${url}/popular?language=ko-KR&page=1`, options)
 	.then(response => {
 		console.log(response.results)
 		movieList = response.results;
-		response.results.map((res) => {
+		response.results.forEach((res) => {
 			let postImg = `${imgUrl}${res.poster_path}`
 			let movieTitle = res.title;
 			let voteAverage = res.vote_average;
@@ -147,7 +147,7 @@ const findMovie = (searchParams) => {
 		.then(response => response.json())
 		.then(response => {
 
-		response.results.map((res) => {
+		response.results.forEach((res) => {
 			let postImg = `${imgUrl}${res.poster_path}`
 			let movieTitle = res.title;
 			let voteAverage = res.vote_average;
@@ -164,33 +164,24 @@ const findMovie = (searchParams) => {
 
 // 관람연령 가져오는 함수
 const getMovieAge = (movieId) => {
-	let age;
 	return fetch(`${url}/${movieId}/release_dates`, options)
 	.then(response => response.json())
 	.then(response => {
-        console.log(response);
-		response.results.map((res) => {
+        let age
+		response.results.filter((res) => {
 			switch (res.iso_3166_1) {
 				case "KR":
-					if (!age) {
-						age = res.release_dates[res.release_dates.length - 1].certification;
+					if (res.release_dates[res.release_dates.length - 1]) {
+						age =  res.release_dates[res.release_dates.length - 1].certification;
 					}
-					console.log("KR:",age)
-					return age;
-					break;
 			
 				case "US":
 					if (!age) {
 						age = res.release_dates[res.release_dates.length - 1].certification;
 					}
 					console.log("US:",age)
-					return age;
-					break;	
 				default:
-					break;
 			}
-			console.log(age)
-			;
 		})
 		return age;
 	})
@@ -199,12 +190,8 @@ const getMovieAge = (movieId) => {
 
 // 장르 가져오는 함수
 const movieGenres = (genres) => {
-	let genresArray = [];
-
-	genres.map(data => {
-		genresArray = [...genresArray, data.name]
-	})
-	genresArray.join(`,`)
+	const genresArray = genres.map(data => data.name)
+	genresArray.join(`, `)
 	document.querySelector(`.tabContent .movieGenres span`).textContent = genresArray
 
 }
@@ -214,13 +201,41 @@ const getMovieCredits = (movieId) => {
 	return fetch(`${url}/${movieId}/credits?language=ko-KR`, options)
   .then(response => response.json())
   .then(response => {
-	response.cast.map((data) => {
-		// console.log(document.querySelector(`.tabContent .movieGenres span`))
-		// document.querySelector(`.tabContent .movieGenres span`).textContent = data.name
-	})
-  })
-  .catch(err => console.error(err));
+    
+    let directer = [];
+    let actors = [];
 
+    response.crew.forEach((crewList) => {
+        if(crewList.department === "Directing") {
+            directer.push( crewList.name)
+        }
+    })
+    directer.join(', ')
+    document.querySelector(`.tabContent .movieDirect span`).textContent = directer;
+
+    response.cast.forEach((data,idx) => {
+        console.log(data)
+        actors.push({
+            name : data.name,
+            profileImg : data.profile_path
+        });
+        
+        makeActorCard(data.name, data.profile_path);
+    })
+    console.log(actors)
+    
+}).catch(err => console.error(err));
+}
+
+const makeActorCard = (name, profileImg) =>{
+    const actorBox = document.createElement('li');
+    actorBox.className = 'actorBox';
+    actorBox.innerHTML = `
+    <img class = "actorImg" src="${imgUrl}${profileImg}" alt="">
+    <div class = "actorName">${name}</div>
+    `
+    return document.querySelector('.movieActors').appendChild(actorBox)
+    
 }
 
 const movieInfo = (movieId) => {
@@ -258,8 +273,6 @@ const movieInfo = (movieId) => {
 
 		const tabList = document.querySelectorAll(`.tabList`)
 		const tabContent = document.querySelectorAll(`.tabContent`)
-
-		console.log(tabList)
 		tabList.forEach((tab,idx) => {
 			tab.addEventListener("click", () => {
 				tabContent.forEach((content) => {
