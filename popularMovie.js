@@ -15,6 +15,7 @@ const options = {
 window.addEventListener("load", () => {
   document.querySelector(`#search`).focus();
 });
+
 let movieList = [];
 
 const scoreModal = () => {
@@ -51,18 +52,10 @@ fetch(`${url}/popular?language=ko-KR&page=1`, options)
       let postImg =
         res.poster_path === null ? emptyImg : ` ${imgUrl}${res.poster_path}`;
       let movieTitle = res.title;
-      let movieName = res.name;
       let voteAverage = res.vote_average;
       let overView = res.overview;
 
-      makeMovieCard(
-        res.id,
-        postImg,
-        movieTitle,
-        movieName,
-        voteAverage,
-        overView
-      );
+      makeMovieCard(res.id, postImg, movieTitle, voteAverage, overView);
     });
   })
   .catch((err) => console.error(err));
@@ -130,31 +123,41 @@ const searchResults = (searchParams) => {
   )
     .then((response) => response.json())
     .then((response) => {
-      response.results.map((item) => {
-        if (item.media_type === "movie") {
+      let data = response.results;
+
+      data.map((movie) => {
+        if (movie.media_type === "movie") {
+          let movieId = movie.id;
+          let movieTitle = movie.title;
+          let voteAverage = movie.vote_average.toFixed(2);
           let postImg =
-            item.poster_path === null
+            movie.poster_path === null
               ? emptyImg
-              : ` ${imgUrl}${item.poster_path}`;
-          let movieTitle = item.title;
-          let voteAverage = item.vote_average;
-          let overView = item.overview;
+              : `${imgUrl}${movie.poster_path}`;
+          let overView = movie.overview;
 
-          makeMovieCard(item.id, postImg, movieTitle, voteAverage, overView);
-        } else if (item.media_type === "person") {
-          let knownFor = item.known_for;
-          console.log(knownFor);
-
+          makeMovieCard(movieId, postImg, movieTitle, voteAverage, overView);
+        } else if (movie.media_type === "person") {
+          let knownFor = movie.known_for;
           knownFor.filter((item) => {
+            let movieId = item.id;
+            let movieTitle = item.title;
+            let voteAverage = item.vote_average.toFixed(2);
             let postImg =
               item.poster_path === null
                 ? emptyImg
-                : ` ${imgUrl}${item.poster_path}`;
-            let movieTitle = item.title;
-            let voteAverage = item.vote_average.toFixed(2);
+                : `${imgUrl}${item.poster_path}`;
             let overView = item.overview;
-
-            makeMovieCard(item.id, postImg, movieTitle, voteAverage, overView);
+            console.log(item);
+            if (item.media_type === "movie") {
+              makeMovieCard(
+                movieId,
+                postImg,
+                movieTitle,
+                voteAverage,
+                overView
+              );
+            }
           });
         }
       });
