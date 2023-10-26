@@ -1,66 +1,88 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Ranked Movie</title>
-        <link rel="stylesheet" href="./main.css" />
-        <script type="text/javascript" src="popularMovie.js"></script>
-    </head>
-    <body>
-        <header>
-            <div class="logo">
-                <img
-                    src="https://i.namu.wiki/i/ON_uzg01Ovt8bnDgwvXxvwWVt97x8kLh9WyaHFrKxzAXXtDkPE8wvYxIhDY44_1UmyEpbEqqSfeUJbKiwsRiULTAe2cDVfB1qG6kroFwAkrIEv5UFbmTbmPqR60FeJrZk07GZFiXFb8L9Q5BNfIutw.svg"
-                    alt=""
-                />
-            </div>
-            <div class="searchBox">
-                <div class="searchForm">
-                    <div class="searchInput">
-                        <input
-                            id="search"
-                            type="text"
-                            required
-                            placeholder="Search"
-                            onkeyup="enterKey(event)"
-                        />
-                        <label for="search"> Search </label>
-                        <span></span>
-                    </div>
-                    <button type="submit" class="searchBtn" 
-                    onclick="searchQuery()">검색</button>
-                    <button  class="searchBtn" 
-                    onclick="scoreModal()">🍅 검색</button>
-                    <div class="modal" id="modal">
-                        <div class="modalContent">
-                            <div class="modalHeader">
-                                <span class="closeBtn" id="closeBtn" onclick="closeModal()">X</span>
-                            </div>
-                            <div class="modalBody">
-                                <div class="searchInput">
-                                    <input type="text" id="score" required placeholder="&nbsp;&nbsp;토마토점수를 입력해주세요!">
-                                    <label for="score">🍅</label>
-                                    <span></span>
-                                </div>
-                                <select name="scoreCheck" id="scoreCheck">
-                                    <option value="up">이상</option>
-                                    <option value="down">이하</option>
-                                </select>
-                            </div>
-                            <div class="modalFooter">
-                                <button class="searchBtn" onclick="scoreSearch()">확인</button>
-                            </div>
-                        </div>
-                    </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ranked Movie</title>
+    <link rel="stylesheet" href="./main.css" />
+    <link rel="stylesheet" href="slide.css" />
+    <script type="text/javascript" src="popularMovie.js"></script>
+    <script type="text/javascript" src="slide.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img
+          src="https://i.namu.wiki/i/ON_uzg01Ovt8bnDgwvXxvwWVt97x8kLh9WyaHFrKxzAXXtDkPE8wvYxIhDY44_1UmyEpbEqqSfeUJbKiwsRiULTAe2cDVfB1qG6kroFwAkrIEv5UFbmTbmPqR60FeJrZk07GZFiXFb8L9Q5BNfIutw.svg"
+          alt=""
+        />
+      </div>
+      <div class="searchBox">
+        <div class="searchForm">
+          <div class="searchInput">
+            <input
+              id="search"
+              type="text"
+              required
+              placeholder="Search"
+              onkeyup="enterKey(event)"
+            />
+            <label for="search"> Search </label>
+            <span></span>
+          </div>
+          <button type="submit" class="searchBtn" onclick="searchQuery()">
+            검색
+          </button>
+          <button class="searchBtn" onclick="scoreModal()">🍅 검색</button>
+          <div class="modal" id="modal">
+            <div class="modalContent">
+              <div class="modalHeader">
+                <span class="closeBtn" id="closeBtn" onclick="closeModal()"
+                  >X</span
+                >
+              </div>
+              <div class="modalBody">
+                <div class="searchInput">
+                  <input
+                    type="text"
+                    id="score"
+                    required
+                    placeholder="&nbsp;&nbsp;토마토점수를 입력해주세요!"
+                  />
+                  <label for="score">🍅</label>
+                  <span></span>
                 </div>
+                <select name="scoreCheck" id="scoreCheck">
+                  <option value="up">이상</option>
+                  <option value="down">이하</option>
+                </select>
+              </div>
+              <div class="modalFooter">
+                <button class="searchBtn" onclick="scoreSearch()">확인</button>
+              </div>
             </div>
-        </header>
-        <div class="container">
-            <div class="movieList" id="movieList">
-                <!-- JS를 통해 영화정보 추가 -->
-            </div>
+          </div>
         </div>
-        <footer></footer>
-    </body>
+      </div>
+    </header>
+
+    <div class="slidebox">
+      <ul class="slidelist">
+        <li class="slideitem">
+          <div>
+            <img src="" alt="" />
+            <h1></h1>
+            <p></p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="container">
+      <div class="movieList" id="movieList">
+        <!-- JS를 통해 영화정보 추가 -->
+      </div>
+    </div>
+    <footer></footer>
+  </body>
 </html>
