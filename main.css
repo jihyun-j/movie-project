@@ -9,6 +9,13 @@ body{
     max-width: 1200px;
     margin: 0 auto;
 }
+div,
+input,
+textarea,
+form {
+    box-sizing: border-box;
+;
+}
 
 header{
     display: flex;
@@ -119,6 +126,10 @@ header .searchBox .searchForm .modal .modalContent{
 header .searchBox .searchForm .modal .modalContent .modalHeader{
     text-align: right;
 }
+header .searchBox .searchForm .modal .modalContent .modalHeader .closeBtn{
+    cursor: pointer;
+}
+
 header .searchBox .searchForm .modal .modalContent .modalBody,
 header .searchBox .searchForm .modal .modalContent .modalFooter{
     text-align: center;
@@ -175,3 +186,241 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck{
     line-height: 1.7;
     font-weight: 400;
 }
+
+
+#infoModal.modal{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw; 
+    height: 100vh; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+    display: none;
+    z-index: 5;
+}
+
+#infoModal.modal .modalContent{
+    background: #fff;
+    padding: 1.5rem 2rem;
+    border-radius: 25px;
+    box-shadow: 0px 0px 30px 0px #a51644;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#infoModal.modal .modalContent .modalHeader{
+    text-align: right;
+}
+#infoModal.modal .modalContent .modalHeader .closeBtn{
+    cursor: pointer;
+}
+#infoModal.modal .modalContent .modalBody,
+#infoModal.modal .modalContent .modalFooter{
+    text-align: center;
+}
+
+#infoModal.modal .modalContent .modalBody .movieInfo{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#infoModal.modal .modalContent .modalBody .movieInfo .moviePoster{
+    display: inline-block;
+    margin: 0 2rem 0 0;
+}
+#infoModal.modal .modalContent .modalBody .movieInfo .moviePoster > img{
+    max-width: 250px;
+    width: 100%;
+}
+#infoModal.modal .modalContent .modalBody .movieInfo .movieContent{
+    display: inline-block;
+    text-align: left;
+    width: calc(100% - 285px);
+}
+#infoModal.modal .modalContent .modalBody .movieInfo .movieContent .movieTitle{
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+#infoModal.modal .modalContent .modalBody .details{
+
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu {
+    margin: 2rem auto 0;
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tab {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 0;
+    
+}
+
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tab .tabList{
+    list-style-type: none;
+    cursor: pointer;
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper{
+    margin-top: 20px;
+    background: green;
+    border-radius: 20px;
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent {
+    padding: 20px;
+    color: #fff;
+    font-size: 24px;
+    display: none;
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tab .tabList.active {
+    background: green;
+    color: #fff;
+    cursor: auto;
+}
+
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent.active {
+    display: block;
+}
+
+
+
+/* //준호 */
+
+.formcontainer{
+    border-radius: 5px;
+}
+.form-background {
+    background-color: black;
+    padding: 30px;
+}
+
+.reviewForm {
+    background-color: #29275a;
+    padding: 30px;
+    width: 80%;
+    max-width: 600px;
+    min-width: 530px;
+    margin: auto;
+    border: solid 1px black;
+   
+}
+.reviewForm label {
+    font-size: 20px;
+    padding: 10px;
+    margin: auto;
+}
+
+.reviewBtn {
+    padding: 10px;
+    margin: 1rem 0 0 0 ;
+    height: 65px;
+   border-radius: 5px;
+   background-color: rgba(255, 255, 255, 0.25);;
+
+
+
+}
+
+ .formInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+
+}
+.idPw{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+}
+
+.w-50 {
+    width: 50%;
+    float: left;
+    padding: 10px;
+
+}
+
+.w-100 {
+    width: 100%;
+    padding: 10px;
+
+} 
+
+
+
+.reviewList {
+
+    background-color: #29275a;
+    padding: 30px;
+    width: 80%;
+    max-width: 600px;
+    min-width: 530px;
+    margin: 10px auto auto auto;
+    border: solid 1px black;
+    border-radius: 5px;
+    
+}
+
+.dropBtn {
+    background-color: transparent;
+    color: #ffffff;
+
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+.dropdown {
+    position: relative;
+    display: inline-block;
+    border: none;
+
+}
+
+.dropdown-content {
+    display: none;
+    background-color: transparent;
+    position: absolute;
+    min-width: 100px;
+    left: 10px;
+    z-index: 1;
+    float: inline-start;
+
+    /*다른 요소들보다 앞에 배치*/
+}
+
+.dropdown-content button {
+    color: black;
+    padding: 10px 10px;
+    text-decoration: none;
+    display: block;
+    background-color: gray;
+  }
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    transition: all 0.5s;
+}
+
+.top1{  
+    display: flex;
+    font-size: 18px;
+    
+}
+
+.listview{
+    margin: 10px auto auto auto;
+    border: solid 1px black;
+    padding: 10px;
+    border-radius: 5px;
+    
+}
+
+.formcontainer{text-align: left;}
