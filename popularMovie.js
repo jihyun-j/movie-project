@@ -42,7 +42,7 @@ const makeMovieCard = (movieId, postImg, movieTitle, voteAverage, overView) => {
   // 영화 title이 undefined로 나올때 name을 보여준다
   // 영화 포스터가 없을 때 다른 이미지를 보여준다
   movieCard.className = "movieCard";
-  movieCard.addEventListener("click", () => alert(`Movie id : ${movieId}`));
+  movieCard.addEventListener('click', () => infoModalOpen(movieId))
   movieCard.innerHTML = `<div class="moviePoster">
 								<img src=${postImg === null ? emptyImg : postImg} alt="">
 							</div>
