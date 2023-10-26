@@ -22,7 +22,10 @@ const scoreModal = () => {
 }
 const infoModalOpen = (movieId) => {
 	document.querySelector('#infoModal').style.display = 'block';
-	movieInfo(movieId)
+	movieInfo(movieId);
+    let 댓글 = { };
+    localStorage.setItem(`리뷰_${movieId}`, JSON.stringify(댓글))
+	showComments(movieId);
 }
 
 //모달 닫고 모달안에 있는 input 데이터 초기화
