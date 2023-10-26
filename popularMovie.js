@@ -1,7 +1,7 @@
 const url = `https://api.themoviedb.org/3/movie`;
 const searchMultiUrl = `https://api.themoviedb.org/3/search/multi`;
 const imgUrl = `https://image.tmdb.org/t/p/original`;
-const emptyImg = `https://s3-us-west-1.amazonaws.com/files.delesign/assets/Not-Found-1.svg`; // image가 null 일때
+const emptyImg = `https://s3-us-west-1.amazonaws.com/files.delesign/assets/Not-Found-1.svg`;
 
 const options = {
   method: "GET",
@@ -56,6 +56,7 @@ fetch(`${url}/popular?language=ko-KR&page=1`, options)
       let overView = res.overview;
 
       makeMovieCard(res.id, postImg, movieTitle, voteAverage, overView);
+      sortByRating(voteAverage);
     });
   })
   .catch((err) => console.error(err));
@@ -77,6 +78,7 @@ const searchQuery = () => {
 
 const scoreSearch = () => {
   const inputScore = document.querySelector("#score").value;
+
   const scoreCheck = document.querySelector(
     "#scoreCheck > option:checked"
   ).value;
@@ -111,6 +113,7 @@ const scoreSearch = () => {
 
 const clearCard = () => {
   const cardList = document.querySelectorAll(`.movieCard `);
+
   cardList.forEach((element) => {
     element.remove();
   });
@@ -124,6 +127,8 @@ const searchResults = (searchParams) => {
     .then((response) => response.json())
     .then((response) => {
       let data = response.results;
+
+      console.log();
 
       data.map((movie) => {
         if (movie.media_type === "movie") {
@@ -164,3 +169,5 @@ const searchResults = (searchParams) => {
     })
     .catch((err) => console.error(err));
 };
+
+const sortByRating = () => {};
