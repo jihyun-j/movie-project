@@ -86,7 +86,13 @@ const searchQuery = () => {
 };
 
 const scoreSearch = () => {
-  const inputScore = document.querySelector("#score").value;
+	const inputScore = document.querySelector('#score').value
+	const scoreCheck = document.querySelector('#scoreCheck > option:checked').value
+	
+	const scoreFilter = movieList;
+	
+	clearCard()
+	scoreModalClose()
 
   const scoreCheck = document.querySelector(
     "#scoreCheck > option:checked"
