@@ -142,14 +142,13 @@ const findMovie = (searchParams) => {
 
 }
 
+// 관람연령 가져오는 함수
 const getMovieAge = (movieId) => {
 	let age;
 	return fetch(`${url}/${movieId}/release_dates`, options)
 	.then(response => response.json())
 	.then(response => {
 		response.results.map((res) => {
-			console.log(res)
-			console.log(!age)
 			switch (res.iso_3166_1) {
 				case "KR":
 					if (!age) {
@@ -177,6 +176,31 @@ const getMovieAge = (movieId) => {
 	.catch(err => console.log(err));
 }
 
+// 장르 가져오는 함수
+const movieGenres = (genres) => {
+	let genresArray = [];
+
+	genres.map(data => {
+		genresArray = [...genresArray, data.name]
+	})
+	genresArray.join(`,`)
+	document.querySelector(`.tabContent .movieGenres span`).textContent = genresArray
+
+}
+
+// 배우 및 감독 정보 가져오는 함수
+const getMovieCredits = (movieId) => {
+	return fetch(`${url}/${movieId}/credits?language=ko-KR`, options)
+  .then(response => response.json())
+  .then(response => {
+	response.cast.map((data) => {
+		// console.log(document.querySelector(`.tabContent .movieGenres span`))
+		// document.querySelector(`.tabContent .movieGenres span`).textContent = data.name
+	})
+  })
+  .catch(err => console.error(err));
+
+}
 
 const movieInfo = (movieId) => {
 	fetch(`${url}/${movieId}?language=ko-KR&page=1`, options)
@@ -190,6 +214,11 @@ const movieInfo = (movieId) => {
 		let runTime = `${Math.floor(response.runtime/60)}시간 ${response.runtime%60}분`;
 		let movieDate = `개봉일 : ${response.release_date}`;
 		let movieAge = await getMovieAge(movieId);
+		// let movieGenres = response.genres;
+		movieGenres(response.genres)
+		getMovieCredits(movieId);
+
+
 
 		document.querySelector(`.movieInfo > .moviePoster > img`).src = postImg
 		document.querySelector(`.movieInfo .movieContent .movieTitle`).textContent = movieTitle
@@ -203,6 +232,8 @@ const movieInfo = (movieId) => {
 		// 	
 
 		// })
+
+
 
 		const tabList = document.querySelectorAll(`.tabList`)
 		const tabContent = document.querySelectorAll(`.tabContent`)

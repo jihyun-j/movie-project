@@ -241,7 +241,15 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck{
     font-size: 2.5rem;
     font-weight: bold;
 }
-
+#infoModal.modal .modalContent .modalBody .movieInfo .movieContent .movieSubInfo {
+    line-height: 1.5;
+    margin: 0 0 5%;
+}
+#infoModal.modal .modalContent .modalBody .movieInfo .movieContent .movieSubInfo .movieAge{
+    border: 1px solid #0c0c0c;
+    padding: 0.1rem 0.2rem 0 0.2rem;
+    border-radius: 2px;
+}
 #infoModal.modal .modalContent .modalBody .details{
 
 }
