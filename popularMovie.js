@@ -250,10 +250,8 @@ const movieInfo = (movieId) => {
 		let runTime = `${Math.floor(response.runtime/60)}시간 ${response.runtime%60}분`;
 		let movieDate = `개봉일 : ${response.release_date}`;
 		let movieAge = await getMovieAge(movieId);
-		// let movieGenres = response.genres;
 		movieGenres(response.genres)
 		getMovieCredits(movieId);
-
 
 
 		document.querySelector(`.movieInfo > .moviePoster > img`).src = postImg
@@ -263,13 +261,6 @@ const movieInfo = (movieId) => {
 		document.querySelector(`.movieInfo .movieSubInfo .movieAge`).textContent = movieAge
 		document.querySelector(`.movieInfo .movieContent .overView`).textContent = overView
 		document.querySelector(`.movieInfo .movieSubInfo .movieAge`).textContent = movieAge
-		console.log(movieAge)
-		// response.map((res) => {
-		// 	
-
-		// })
-
-
 
 		const tabList = document.querySelectorAll(`.tabList`)
 		const tabContent = document.querySelectorAll(`.tabContent`)
