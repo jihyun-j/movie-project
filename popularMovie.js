@@ -149,15 +149,22 @@ const getMovieAge = (movieId) => {
 	.then(response => {
 		response.results.map((res) => {
 			console.log(res)
+			console.log(!age)
 			switch (res.iso_3166_1) {
 				case "KR":
-					age = res.release_dates[0].certification;
+					if (!age) {
+						age = res.release_dates[0].certification;
+					}
 					console.log("KR:",age)
+					return age;
 					break;
 			
 				case "US":
-					age = res.release_dates[0].certification;
+					if (!age) {
+						age = res.release_dates[0].certification;
+					}
 					console.log("US:",age)
+					return age;
 					break;	
 				default:
 					break;
