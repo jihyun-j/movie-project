@@ -1,117 +1,75 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Ranked Movie</title>
-        <link rel="stylesheet" href="./main.css" />
-        <script type="text/javascript" src="popularMovie.js"></script>
-    </head>
-    <body>
-        <header>
-            <div class="logo">
-                <img
-                    src="https://i.namu.wiki/i/ON_uzg01Ovt8bnDgwvXxvwWVt97x8kLh9WyaHFrKxzAXXtDkPE8wvYxIhDY44_1UmyEpbEqqSfeUJbKiwsRiULTAe2cDVfB1qG6kroFwAkrIEv5UFbmTbmPqR60FeJrZk07GZFiXFb8L9Q5BNfIutw.svg"
-                    alt=""
-                />
-            </div>
-            <div class="searchBox">
-                <div class="searchForm">
-                    <div class="searchInput">
-                        <input
-                            id="search"
-                            type="text"
-                            required
-                            placeholder="Search"
-                            onkeyup="enterKey(event)"
-                        />
-                        <label for="search"> Search </label>
-                        <span></span>
-                    </div>
-                    <button type="submit" class="searchBtn" 
-                    onclick="searchQuery()">검색</button>
-                    <button  class="searchBtn" 
-                    onclick="scoreModal()">🍅 검색</button>
-                    <div class="modal" id="searchModal">
-                        <div class="modalContent">
-                            <div class="modalHeader">
-                                <span class="closeBtn" id="closeBtn" onclick="scoreModalClose()">
-                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" viewBox="0 0 17 17" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><g></g><path d="M9.207 8.5l6.646 6.646-0.707 0.707-6.646-6.646-6.646 6.646-0.707-0.707 6.646-6.646-6.647-6.646 0.707-0.707 6.647 6.646 6.646-6.646 0.707 0.707-6.646 6.646z"></path></svg>
-                                </span>
-                            </div>
-                            <div class="modalBody">
-                                <div class="searchInput">
-                                    <input type="text" id="score" required placeholder="&nbsp;&nbsp;토마토점수를 입력해주세요!">
-                                    <label for="score">🍅</label>
-                                    <span></span>
-                                </div>
-                                <select name="scoreCheck" id="scoreCheck">
-                                    <option value="up">이상</option>
-                                    <option value="down">이하</option>
-                                </select>
-                            </div>
-                            <div class="modalFooter">
-                                <button class="searchBtn" onclick="scoreSearch()">확인</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ranked Movie</title>
+    <link rel="stylesheet" href="./main.css" />
+    <script type="text/javascript" src="popularMovie.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img
+          src="https://i.namu.wiki/i/ON_uzg01Ovt8bnDgwvXxvwWVt97x8kLh9WyaHFrKxzAXXtDkPE8wvYxIhDY44_1UmyEpbEqqSfeUJbKiwsRiULTAe2cDVfB1qG6kroFwAkrIEv5UFbmTbmPqR60FeJrZk07GZFiXFb8L9Q5BNfIutw.svg"
+          alt="" />
+      </div>
+      <div class="searchBox">
+        <div class="searchForm">
+          <div class="searchInput">
+            <input
+              id="search"
+              type="text"
+              required
+              placeholder="Search"
+              onkeyup="enterKey(event)" />
+            <label for="search"> Search </label>
+            <span></span>
+          </div>
+          <button type="submit" class="searchBtn" onclick="searchQuery()">
+            검색
+          </button>
+          <button class="searchBtn" onclick="scoreModal()">🍅 검색</button>
+          <div class="modal" id="modal">
+            <div class="modalContent">
+              <div class="modalHeader">
+                <span class="closeBtn" id="closeBtn" onclick="closeModal()"
+                  >X</span
+                >
+              </div>
+              <div class="modalBody">
+                <div class="searchInput">
+                  <input
+                    type="text"
+                    id="score"
+                    required
+                    placeholder="&nbsp;&nbsp;토마토점수를 입력해주세요!" />
+                  <label for="score">🍅</label>
+                  <span></span>
                 </div>
+                <select name="scoreCheck" id="scoreCheck">
+                  <option value="up">이상</option>
+                  <option value="down">이하</option>
+                </select>
+              </div>
+              <div class="modalFooter">
+                <button class="searchBtn" onclick="scoreSearch()">확인</button>
+              </div>
             </div>
-        </header>
-        <div class="container">
-            <div class="modal" id="infoModal">
-                <div class="modalContent">
-                    <div class="modalHeader">
-                        <span class="closeBtn" id="closeBtn" onclick="infoModalClose()">
-                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" viewBox="0 0 17 17" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><g></g><path d="M9.207 8.5l6.646 6.646-0.707 0.707-6.646-6.646-6.646 6.646-0.707-0.707 6.646-6.646-6.647-6.646 0.707-0.707 6.647 6.646 6.646-6.646 0.707 0.707-6.646 6.646z"></path></svg>
-                        </span>
-                    </div>
-                    <div class="modalBody">
-                        <div class="movieInfo">
-                            <div class="moviePoster">
-								<img src="" alt="">
-							</div>
-                            <div class="movieContent">
-                                <div class="movieTitle"></div>
-                                <div class="movieSubInfo">
-                                    <span class="movieDate"></span>
-                                    <span class="movieRuntime"></span>
-                                    <span class="movieAge"></span>
-                                </div>
-                                <div class="overView"></div>
-                            </div>
-                        </div>
-                        <div class="details">
-                            <div class="tabMenu">
-                                <ul class="tab">
-                                    <li class="tabList active">상세정보</li>
-                                    <li class="tabList">관람평</li>
-                                </ul>
-                                <div class="tabContentWrapper">
-                                    <div class="tabContent active">
-                                        <div class="movieGenres">
-                                            장르 : <span></span>
-                                        </div>
-                                        <div></div>
-                                    </div>
-                                    <div class="tabContent">관람평 내용</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modalFooter">
-                    </div>
-                </div>
-            </div>
-            <div class="movieList" id="movieList">
-                <!-- JS를 통해 영화정보 추가 -->
-            </div>
+          </div>
         </div>
-        <footer></footer>
-    </body>
+      </div>
+    </header>
+
+    <div class="sortContainer">
+      <button class="sort" onclick="sortByRating()">평점순</button>
+    </div>
+
+    <div class="container">
+      <div class="movieList" id="movieList">
+        <!-- JS를 통해 영화정보 추가 -->
+      </div>
+    </div>
+    <footer></footer>
+  </body>
 </html>
-
-
-

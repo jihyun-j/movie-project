@@ -1,19 +1,21 @@
 const url = `https://api.themoviedb.org/3/movie`;
-const searchUrl = `https://api.themoviedb.org/3/search/movie`;
-const imgUrl = `https://image.tmdb.org/t/p/original`
+const searchMultiUrl = `https://api.themoviedb.org/3/search/multi`;
+const imgUrl = `https://image.tmdb.org/t/p/original`;
+const emptyImg = `https://s3-us-west-1.amazonaws.com/files.delesign/assets/Not-Found-1.svg`;
 
 const options = {
-	method: 'GET',
-	headers: {
-		accept: 'application/json',
-		Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZmMyZGZhZDQ3YThlZDRmMWUwYWQxYjc1MGVhMzBhMSIsInN1YiI6IjY1MzA5NGQ3YWVkZTU5MDE0YzM4MDBjZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.F6qLqVKcX12Lxl8WUe5P3sDfhlIdJ44DaMgj0Dvuq1M'
-  	}
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZmMyZGZhZDQ3YThlZDRmMWUwYWQxYjc1MGVhMzBhMSIsInN1YiI6IjY1MzA5NGQ3YWVkZTU5MDE0YzM4MDBjZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.F6qLqVKcX12Lxl8WUe5P3sDfhlIdJ44DaMgj0Dvuq1M",
+  },
 };
 
+window.addEventListener("load", () => {
+  document.querySelector(`#search`).focus();
+});
 
-window.addEventListener('load', () => {
-	document.querySelector(`#search`).focus();
-})
 let movieList = [];
 
 //모달 보이게
@@ -35,112 +37,147 @@ const infoModalClose = () => {
 }
 	
 const makeMovieCard = (movieId, postImg, movieTitle, voteAverage, overView) => {
-	const movieCard = document.createElement('div');
+  const movieCard = document.createElement("div");
 
 	movieCard.className = 'movieCard';
 	movieCard.addEventListener('click', () => infoModalOpen(movieId))
-	movieCard.innerHTML = `<div class="moviePoster">
-								<img src=${postImg} alt="">
+	
+ 	movieCard.innerHTML = `<div class="moviePoster">
+								<img src=${postImg === null ? emptyImg : postImg} alt="">
 							</div>
-							<div class="movieTitle">${movieTitle}</div>
+							<div class="movieTitle">${movieTitle}</div> 
 							<div class="voteAverage" >🍅 : <span id="voteAverage">${voteAverage}</span></div>
-							<div class="overView">${overView}</div>`
+							<div class="overView">${overView}</div>`;
 
-	return document.querySelector("#movieList").appendChild(movieCard)
-}
+  return document.querySelector("#movieList").appendChild(movieCard);
+};
 
-  //영화 리스트
+//영화 리스트
 fetch(`${url}/popular?language=ko-KR&page=1`, options)
-	.then(response => response.json())
-	.then(response => {
-		console.log(response.results)
-		movieList = response.results;
-		response.results.map((res) => {
-			let postImg = `${imgUrl}${res.poster_path}`
-			let movieTitle = res.title;
-			let voteAverage = res.vote_average;
-			let overView = res.overview;
+  .then((response) => response.json())
+  .then((response) => {
+    movieList = response.results;
+    response.results.map((res) => {
+      let postImg =
+        res.poster_path === null ? emptyImg : ` ${imgUrl}${res.poster_path}`;
+      let movieTitle = res.title;
+      let voteAverage = res.vote_average;
+      let overView = res.overview;
 
-			makeMovieCard(res.id, postImg, movieTitle, voteAverage, overView);
-
-		})
-  	})
-  	.catch(err => console.error(err));
+      makeMovieCard(res.id, postImg, movieTitle, voteAverage, overView);
+      sortByRating(voteAverage);
+    });
+  })
+  .catch((err) => console.error(err));
 
 // 영화 검색
 const enterKey = (event) => {
-	if (event.keyCode === 13) {
-		searchQuery()
-	}
-}
+  if (event.keyCode === 13) {
+    searchQuery();
+  }
+};
 
 const searchQuery = () => {
-	const searchParams = document.querySelector('#search').value;
-	searchParams ? clearCard() : alert("검색어를 입력해주세요")
-	
-	findMovie(searchParams)
-}
+  const searchParams = document.querySelector("#search").value;
+  document.querySelector("#score").value = ``;
+  searchParams ? clearCard() : alert("검색어를 입력해주세요");
+
+  searchResults(searchParams);
+};
 
 const scoreSearch = () => {
-	const inputScore = document.querySelector('#score').value
-	const scoreCheck = document.querySelector('#scoreCheck > option:checked').value
-	
-	const scoreFilter = movieList;
-	
-	clearCard()
-	scoreModalClose()
+  const inputScore = document.querySelector("#score").value;
 
-	scoreFilter.filter((res) => {
-		let score =  res.vote_average
+  const scoreCheck = document.querySelector(
+    "#scoreCheck > option:checked"
+  ).value;
 
-		let movieId = res.id
-		let postImg = `${imgUrl}${res.poster_path}`
-		let movieTitle = res.title;
-		let overView = res.overview;
+  const scoreFilter = movieList;
 
-		switch (scoreCheck) {
-			case "up": 
-			if (score >= inputScore) {
-				makeMovieCard(movieId,postImg,movieTitle,score,overView);
-			}
-			break;
-			case "down": 
-			if (score <= inputScore) {
-				makeMovieCard(movieId,postImg,movieTitle,score,overView);
-			}
-			break;
-		}
-	})
+  clearCard();
+  closeModal();
 
-}
+  scoreFilter.filter((res) => {
+    let score = res.vote_average;
+    let movieId = res.id;
+    let postImg =
+      res.poster_path === null ? emptyImg : ` ${imgUrl}${item.poster_path}`;
+    let movieTitle = res.title;
+    let overView = res.overview;
 
+    switch (scoreCheck) {
+      case "up":
+        if (score >= inputScore) {
+          makeMovieCard(movieId, postImg, movieTitle, score, overView);
+        }
+        break;
+      case "down":
+        if (score <= inputScore) {
+          makeMovieCard(movieId, postImg, movieTitle, score, overView);
+        }
+        break;
+    }
+  });
+};
 
 const clearCard = () => {
-	const cardList = document.querySelectorAll(`.movieCard `)
-	cardList.forEach(element => {
-		element.remove()
-	});
-}
+  const cardList = document.querySelectorAll(`.movieCard `);
 
-const findMovie = (searchParams) => {
-	fetch(`${searchUrl}?query=${searchParams}&include_adult=false&language=ko-KR&page=1`, options)
-		.then(response => response.json())
-		.then(response => {
+  cardList.forEach((element) => {
+    element.remove();
+  });
+};
 
-		response.results.map((res) => {
-			let postImg = `${imgUrl}${res.poster_path}`
-			let movieTitle = res.title;
-			let voteAverage = res.vote_average;
-			let overView = res.overview;
+const searchResults = (searchParams) => {
+  fetch(
+    `${searchMultiUrl}?query=${searchParams}&include_adult=false&language=ko-KR&page=1`,
+    options
+  )
+    .then((response) => response.json())
+    .then((response) => {
+      let data = response.results;
 
-			makeMovieCard(res.id, postImg, movieTitle, voteAverage, overView);
+      console.log();
 
-		})
+      data.map((movie) => {
+        if (movie.media_type === "movie") {
+          let movieId = movie.id;
+          let movieTitle = movie.title;
+          let voteAverage = movie.vote_average.toFixed(2);
+          let postImg =
+            movie.poster_path === null
+              ? emptyImg
+              : `${imgUrl}${movie.poster_path}`;
+          let overView = movie.overview;
 
-  	})
-  	.catch(err => console.error(err));
-
-}
+          makeMovieCard(movieId, postImg, movieTitle, voteAverage, overView);
+        } else if (movie.media_type === "person") {
+          let knownFor = movie.known_for;
+          knownFor.filter((item) => {
+            let movieId = item.id;
+            let movieTitle = item.title;
+            let voteAverage = item.vote_average.toFixed(2);
+            let postImg =
+              item.poster_path === null
+                ? emptyImg
+                : `${imgUrl}${item.poster_path}`;
+            let overView = item.overview;
+            console.log(item);
+            if (item.media_type === "movie") {
+              makeMovieCard(
+                movieId,
+                postImg,
+                movieTitle,
+                voteAverage,
+                overView
+              );
+            }
+          });
+        }
+      });
+    })
+    .catch((err) => console.error(err));
+};
 
 // 관람연령 가져오는 함수
 const getMovieAge = (movieId) => {
