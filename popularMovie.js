@@ -1,7 +1,7 @@
 const url = `https://api.themoviedb.org/3/movie`;
 const searchUrl = `https://api.themoviedb.org/3/search/movie`;
 const imgUrl = `https://image.tmdb.org/t/p/original`
-
+let currentMovieId1;
 const options = {
 	method: 'GET',
 	headers: {
@@ -10,6 +10,7 @@ const options = {
   	}
 };
 
+let 댓글 = { };
 
 window.addEventListener('load', () => {
 	document.querySelector(`#search`).focus();
@@ -23,10 +24,12 @@ const scoreModal = () => {
 const infoModalOpen = (movieId) => {
 	document.querySelector('#infoModal').style.display = 'block';
 	movieInfo(movieId);
-    let 댓글 = { };
+	댓글 = movieId;
     localStorage.setItem(`리뷰_${movieId}`, JSON.stringify(댓글))
-	showComments(movieId);
+	console.log('제바아알',댓글);
+
 }
+
 
 //모달 닫고 모달안에 있는 input 데이터 초기화
 const scoreModalClose = () => {
@@ -206,21 +209,28 @@ const movieInfo = (movieId) => {
 		// 	
 
 		// })
-
+		
 		const tabList = document.querySelectorAll(`.tabList`)
 		const tabContent = document.querySelectorAll(`.tabContent`)
 
 		console.log(tabList)
+
 		tabList.forEach((tab,idx) => {
+			
 			tab.addEventListener("click", () => {
 				tabContent.forEach((content) => {
 					content.classList.remove(`active`)
 				})
 				tabList.forEach((list) => {
+					
+					
 					list.classList.remove(`active`)
+					
 				})
+				
 				tabList[idx].classList.add(`active`)
 				tabContent[idx].classList.add(`active`)
+
 			})
 		})
 
