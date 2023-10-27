@@ -1,6 +1,7 @@
 const url = `https://api.themoviedb.org/3/movie`;
 const searchUrl = `https://api.themoviedb.org/3/search/movie`;
 const imgUrl = `https://image.tmdb.org/t/p/original`
+const emptyImg = `https://s3-us-west-1.amazonaws.com/files.delesign/assets/Not-Found-1.svg`;
 
 const options = {
 	method: 'GET',
@@ -168,7 +169,7 @@ const getMovieAge = (movieId) => {
 	.then(response => response.json())
 	.then(response => {
         let age
-		response.results.filter((res) => {
+		response.results.forEach((res) => {
 			switch (res.iso_3166_1) {
 				case "KR":
 					if (res.release_dates[res.release_dates.length - 1]) {
@@ -212,16 +213,12 @@ const getMovieCredits = (movieId) => {
     directer.join(', ')
     document.querySelector(`.tabContent .movieDirect span`).textContent = directer;
 
-    response.cast.forEach((data,idx) => {
-        actors.push({
-            name : data.name,
-            profileImg : data.profile_path
-        });
-        makeActorCard(data.name, data.profile_path);
+    response.cast.forEach((data) => {
+        console.log(data.profile_path ,!data.profile_path)
+		const profileImg = data.profile_path ? imgUrl + data.profile_path : emptyImg;
+		makeActorCard(data.name, profileImg);
     })
-    console.log(actors)
 
-    
 }).catch(err => console.error(err));
 }
 
@@ -229,7 +226,7 @@ const makeActorCard = (name, profileImg) =>{
     const actorBox = document.createElement('li');
     actorBox.className = 'actorBox';
     actorBox.innerHTML = `
-    <img class = "actorImg" src="${imgUrl}${profileImg}" alt="">
+    <img class = "actorImg" src="${profileImg}" alt="">
     <div class = "actorName">${name}</div>
     `
     return document.querySelector('.movieActors').appendChild(actorBox)
@@ -245,7 +242,6 @@ const movieInfo = (movieId) => {
 	fetch(`${url}/${movieId}?language=ko-KR&page=1`, options)
 	  .then(response => response.json())
 	  .then(async response => {
-		console.log(response)
 		let postImg = `${imgUrl}${response.poster_path}`
 		let movieTitle = response.title;
 		let voteAverage = response.vote_average;
