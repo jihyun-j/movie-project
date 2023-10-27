@@ -127,15 +127,9 @@ const searchResults = (searchParams) => {
     .then((response) => {
       movieList = response.results;
 
-      let filteredMovie = movieList.filter((item) => {
-        return item.media_type === "movie";
-      });
-
-      // let filteredPerson = movieList.
-
       clearCard();
 
-      filteredMovie.map((movie) => {
+      movieList.map((movie) => {
         console.log(movie);
         if (movie.media_type !== "tv") {
           let movieId = movie.id;
@@ -199,9 +193,9 @@ let clickedReleasedDate = true;
 const sortByReleasedYear = () => {
   clickedReleasedDate = !clickedReleasedDate;
 
-  // let filteredMovie = movieList.filter((movie) => {
-  //   return movie.media_type !== "tv";
-  // });
+  let filteredMovie = movieList.filter((movie) => {
+    return movie.media_type !== "tv";
+  });
 
   console.log(filteredMovie);
 

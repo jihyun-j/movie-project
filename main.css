@@ -228,3 +228,55 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
   line-height: 1.7;
   font-weight: 400;
 }
+
+/* 슬라이드 기능 시작 */
+.slidebox {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.slidebox .slidelist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.slideitem {
+  width: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+.slideitem > img {
+  position: absolute;
+  display: block;
+  width: 70%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.movieInfo {
+  position: absolute;
+  z-index: 3;
+}
+.slideBtn {
+  position: absolute;
+  z-index: 2;
+  background: none;
+  border: none;
+  font-size: 4rem;
+  top: 50%;
+  transform: translate(-50%);
+  color: #fff;
+  background-color: #08085e;
+}
+
+.prevBtn {
+  left: 1rem;
+}
+
+.nextBtn {
+  right: 1rem;
+}
+/* 슬라이드 기능 끝*/
