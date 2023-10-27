@@ -57,17 +57,32 @@ function showComments() {
     });
 }
 function deleteComment(index) {
+    let reviewKey = 댓글;
     let Comment = JSON.parse(localStorage.getItem(reviewKey)) || [];
     let 비번 = prompt('비번입력하세여');
     if (비번 === Comment[index].비밀번호) {
-        댓글.splice(index, 1);
-        localStorage.setItem(reviewKey, JSON.stringify(댓글));
+        Comment.splice(index,1);
+        localStorage.setItem(reviewKey, JSON.stringify(Comment));
         alert('삭제 완료 !')
-        movieInfo(movieId);
+       
         showComments();
     }
     else alert('비밀번호 입력해야 지울수 있어요 !')
 }
 
+function editComment(index){
+    let reviewKey = 댓글;
+    let Comment = JSON.parse(localStorage.getItem(reviewKey)) || [];
+    let 비번 = prompt('비번입력하세여');
+    if (비번 === Comment[index].비밀번호) {
+        
+        localStorage.setItem(reviewKey, JSON.stringify(Comment));
+        alert('수정 완료 !')
+       
+        showComments();
+    }
+    else alert('비밀번호 입력해야 수정할수 있어요 !')
+
+}
 
 // showComments();

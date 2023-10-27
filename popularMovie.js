@@ -26,7 +26,7 @@ const infoModalOpen = (movieId) => {
 	movieInfo(movieId);
 	댓글 = movieId;
     localStorage.setItem(`리뷰_${movieId}`, JSON.stringify(댓글))
-	console.log('제바아알',댓글);
+	console.log('리뷰무비id',댓글);
 
 }
 
