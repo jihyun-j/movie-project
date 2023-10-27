@@ -35,6 +35,7 @@ const scoreModalClose = () => {
 }
 const infoModalClose = () => {
 	document.querySelector('#infoModal').style.display = 'none';
+	clearActorCard()
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -73,7 +74,6 @@ const makeMovieCard = (movieId, postImg, movieTitle, voteAverage, overView) => {
 fetch(`${url}/popular?language=ko-KR&page=1`, options)
 	.then(response => response.json())
 	.then(response => {
-		console.log(response.results)
 		movieList = response.results;
 		response.results.forEach((res) => {
 			let postImg = `${imgUrl}${res.poster_path}`
@@ -179,7 +179,6 @@ const getMovieAge = (movieId) => {
 					if (!age) {
 						age = res.release_dates[res.release_dates.length - 1].certification;
 					}
-					console.log("US:",age)
 				default:
 			}
 		})
@@ -214,15 +213,14 @@ const getMovieCredits = (movieId) => {
     document.querySelector(`.tabContent .movieDirect span`).textContent = directer;
 
     response.cast.forEach((data,idx) => {
-        console.log(data)
         actors.push({
             name : data.name,
             profileImg : data.profile_path
         });
-        
         makeActorCard(data.name, data.profile_path);
     })
     console.log(actors)
+
     
 }).catch(err => console.error(err));
 }
@@ -235,9 +233,14 @@ const makeActorCard = (name, profileImg) =>{
     <div class = "actorName">${name}</div>
     `
     return document.querySelector('.movieActors').appendChild(actorBox)
-    
 }
+const clearActorCard = () =>{
+	const actorBox = document.querySelectorAll('.actorBox')
+	actorBox.forEach(actor => {
+		actor.remove()
+	})
 
+}
 const movieInfo = (movieId) => {
 	fetch(`${url}/${movieId}?language=ko-KR&page=1`, options)
 	  .then(response => response.json())
@@ -281,8 +284,3 @@ const movieInfo = (movieId) => {
 	.catch(err => console.error(err));
 
 }
-
-// const tabList = document.querySelectorAll(`.tabList`)
-// const tabContent = document.querySelectorAll(`.tabContent`)
-
-// console.log(tabList)
