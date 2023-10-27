@@ -17,10 +17,12 @@ window.addEventListener("load", () => {
 });
 
 let movieList = [];
+let searchList = [];
 
 const scoreModal = () => {
   document.querySelector("#modal").style.display = "block";
 };
+
 const closeModal = () => {
   document.querySelector("#modal").style.display = "none";
   document.querySelector("#score").value = ``;
@@ -29,8 +31,6 @@ const closeModal = () => {
 const makeMovieCard = (movieId, postImg, movieTitle, voteAverage, overView) => {
   const movieCard = document.createElement("div");
 
-  // 영화 title이 undefined로 나올때 name을 보여준다
-  // 영화 포스터가 없을 때 다른 이미지를 보여준다
   movieCard.className = "movieCard";
   movieCard.addEventListener("click", () => alert(`Movie id : ${movieId}`));
   movieCard.innerHTML = `<div class="moviePoster">
@@ -48,6 +48,7 @@ fetch(`${url}/popular?language=ko-KR&page=1`, options)
   .then((response) => response.json())
   .then((response) => {
     movieList = response.results;
+
     response.results.map((res) => {
       let postImg =
         res.poster_path === null ? emptyImg : ` ${imgUrl}${res.poster_path}`;
@@ -118,41 +119,73 @@ const clearCard = () => {
   });
 };
 
-const searchResults = (searchParams) => {
-  fetch(
+const searchResults = async (searchParams) => {
+  let response = await fetch(
     `${searchMultiUrl}?query=${searchParams}&include_adult=false&language=ko-KR&page=1`,
     options
-  )
-    .then((response) => response.json())
-    .then((response) => {
-      movieList = response.results;
+  );
+  let data = await response.json();
+  searchList = data.results; // 영화 검색을하면 검색 리스크를 채워준다.
+  movieList = []; // 영화 검색결과를 보여주면서 메인에 있던 영화 리스크를 비워준다
 
-      let filteredMovie = movieList.filter((item) => {
-        return item.media_type === "movie";
-      });
+  clearCard();
 
-      // let filteredPerson = movieList.
+  searchList.forEach((movie) => {
+    switch (movie.media_type) {
+      case "movie":
+        let movieId = movie.id;
+        let movieTitle = movie.title;
+        let voteAverage = movie.vote_average;
+        let postImg =
+          movie.poster_path === null
+            ? emptyImg
+            : `${imgUrl}${movie.poster_path}`;
+        let overView = movie.overview;
 
-      clearCard();
+        makeMovieCard(movieId, postImg, movieTitle, voteAverage, overView);
+        break;
 
-      filteredMovie.map((movie) => {
-        console.log(movie);
-        if (movie.media_type !== "tv") {
-          let movieId = movie.id;
-          let movieTitle = movie.title;
-          let voteAverage = movie.vote_average;
+      case "person":
+        searchList = movie.known_for;
+        searchList.forEach((item) => {
+          let movieId = item.id;
+          let movieTitle = item.title;
+          let voteAverage = item.vote_average.toFixed(2);
           let postImg =
-            movie.poster_path === null
+            item.poster_path === null
               ? emptyImg
-              : `${imgUrl}${movie.poster_path}`;
-          let overView = movie.overview;
+              : `${imgUrl}${item.poster_path}`;
+          let overView = item.overview;
 
-          makeMovieCard(movieId, postImg, movieTitle, voteAverage, overView);
-        }
-        if (movie.media_type === "person") {
-          // let knownFor = movie.known_for;
-          movieList = movie.known_for;
-          movieList.forEach((item) => {
+          if (item.media_type === "movie") {
+            makeMovieCard(movieId, postImg, movieTitle, voteAverage, overView);
+          }
+        });
+        break;
+    }
+  });
+};
+
+/// 각 Sort 버튼 클릭 후 카드 리셋과 재정렬
+const sortCards = (movie_List) => {
+  clearCard();
+
+  if (movie_List === searchList) {
+    searchList.forEach((res) => {
+      switch (res.media_type) {
+        case "movie":
+          let postImg =
+            res.poster_path === null ? emptyImg : `${imgUrl}${res.poster_path}`;
+          let movieTitle = res.title;
+          let voteAverage = res.vote_average;
+          let overView = res.overview;
+
+          makeMovieCard(res.id, postImg, movieTitle, voteAverage, overView);
+          break;
+
+        case "person":
+          searchList = movie.known_for;
+          searchList.forEach((item) => {
             let movieId = item.id;
             let movieTitle = item.title;
             let voteAverage = item.vote_average.toFixed(2);
@@ -172,25 +205,20 @@ const searchResults = (searchParams) => {
               );
             }
           });
-        }
-      });
-    })
-    .catch((err) => console.error(err));
-};
+          break;
+      }
+    });
+  } else if (movie_List === movieList) {
+    movieList.forEach((res) => {
+      let postImg =
+        res.poster_path === null ? emptyImg : `${imgUrl}${res.poster_path}`;
+      let movieTitle = res.title;
+      let voteAverage = res.vote_average;
+      let overView = res.overview;
 
-/// 각 Sort 버튼 클릭 후 카드 리셋과 재정렬
-const sortCards = (movieList) => {
-  clearCard();
-
-  movieList.forEach((res) => {
-    let postImg =
-      res.poster_path === null ? emptyImg : `${imgUrl}${res.poster_path}`;
-    let movieTitle = res.title;
-    let voteAverage = res.vote_average;
-    let overView = res.overview;
-
-    makeMovieCard(res.id, postImg, movieTitle, voteAverage, overView);
-  });
+      makeMovieCard(res.id, postImg, movieTitle, voteAverage, overView);
+    });
+  }
 };
 
 /// Sort by Released Date ///
@@ -199,21 +227,27 @@ let clickedReleasedDate = true;
 const sortByReleasedYear = () => {
   clickedReleasedDate = !clickedReleasedDate;
 
-  // let filteredMovie = movieList.filter((movie) => {
-  //   return movie.media_type !== "tv";
-  // });
+  if (searchList.length !== 0) {
+    searchList.sort((a, b) => {
+      if (clickedReleasedDate) {
+        return new Date(a.release_date) - new Date(b.release_date);
+      } else {
+        return new Date(b.release_date) - new Date(a.release_date);
+      }
+    });
 
-  console.log(filteredMovie);
+    sortCards(searchList);
+  } else if (movieList.length !== 0) {
+    movieListList.sort((a, b) => {
+      if (clickedReleasedDate) {
+        return new Date(a.release_date) - new Date(b.release_date);
+      } else {
+        return new Date(b.release_date) - new Date(a.release_date);
+      }
+    });
 
-  filteredMovie.sort((a, b) => {
-    if (clickedReleasedDate) {
-      return new Date(a.release_date) - new Date(b.release_date);
-    } else {
-      return new Date(b.release_date) - new Date(a.release_date);
-    }
-  });
-
-  sortCards(movieList);
+    sortCards(movieListList);
+  }
 };
 
 /// Sort by Movie Title ///
@@ -222,67 +256,50 @@ let clickedTitle = true;
 const sortByTitle = () => {
   clickedTitle = !clickedTitle;
 
-  movieList.sort((a, b) => {
-    if (clickedTitle) {
-      return a.title.localeCompare(b.title);
-    } else {
-      return b.title.localeCompare(a.title);
-    }
-  });
-
-  sortCards(movieList);
+  if (searchList.length !== 0) {
+    searchList.sort((a, b) => {
+      if (clickedTitle) {
+        return a.title.localeCompare(b.title);
+      } else {
+        return b.title.localeCompare(a.title);
+      }
+    });
+    sortCards(searchList);
+  } else if (movieList.length !== 0) {
+    movieList.sort((a, b) => {
+      if (clickedTitle) {
+        return a.title.localeCompare(b.title);
+      } else {
+        return b.title.localeCompare(a.title);
+      }
+    });
+    sortCards(movieList);
+  }
 };
 
 /// Sort by Rating ///
-
 let clickedRating = true;
+
 const sortByRating = () => {
   clickedRating = !clickedRating;
 
-  movieList.sort((a, b) => {
-    if (clickedRating) {
-      return a.vote_average - b.vote_average;
-    } else {
-      return b.vote_average - a.vote_average;
-    }
-  });
-
-  sortCards(movieList);
-};
-
-// 슬라이드 기능
-/*
-fetch(
-  "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=Ko-kr&page=1&sort_by=popularity.desc",
-  options
-)
-  .then((response) => response.json())
-  .then((response) => {
-    const movie_list = response.results;
-    movie_list.forEach((i) => {
-      let image = i["backdrop_path"];
-      let title = i["title"];
-      let overview = i["overview"];
-
-      let slidelist = ` 
-      <div class="slidebox">
-        <ul class="slidelist">
-          <li class="slideitem">
-              <img src="https://image.tmdb.org/t/p/w500${image}"alt="">
-              <div class="movieInfo">
-                <h1>${title}</h1>
-                <p>${overview}</p>
-              </div>
-            </li>
-        </ul>
-      </div>
-      `;
-
-      let mainslide = document.querySelector(".slidelist");
-      let temp_html = document.createElement("div");
-      temp_html.innerHTML = slidelist;
-      mainslide.append(temp_html);
+  if (searchList.length !== 0) {
+    searchList.sort((a, b) => {
+      if (clickedRating) {
+        return a.vote_average - b.vote_average;
+      } else {
+        return b.vote_average - a.vote_average;
+      }
     });
-  })
-  .catch((err) => console.error(err));
-*/
+    sortCards(searchList);
+  } else if (movieList.length !== 0) {
+    movieList.sort((a, b) => {
+      if (clickedRating) {
+        return a.vote_average - b.vote_average;
+      } else {
+        return b.vote_average - a.vote_average;
+      }
+    });
+    sortCards(movieList);
+  }
+};
