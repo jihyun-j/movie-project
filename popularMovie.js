@@ -230,7 +230,7 @@ const movieInfo = (movieId) => {
 				
 				tabList[idx].classList.add(`active`)
 				tabContent[idx].classList.add(`active`)
-
+				showComments();
 			})
 		})
 

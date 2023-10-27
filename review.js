@@ -1,4 +1,6 @@
-
+document.addEventListener("DOMContentLoaded", function() {
+    showComments();
+});
 
 function saveReviewWithMovieId() {
     const reviewKey = 댓글;
