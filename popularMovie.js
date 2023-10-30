@@ -125,9 +125,10 @@ const searchResults = async (searchParams) => {
     options
   );
   let data = await response.json();
-  searchList = data.results; // 영화 검색을하면 검색 리스크를 채워준다.
-  movieList = []; // 영화 검색결과를 보여주면서 메인에 있던 영화 리스크를 비워준다
+  searchList = data.results; // 영화 검색을하면 검색 결과 요소들을 저장
+  movieList = []; // 영화 검색결과를 보여주면서 메인에 있던 영화 리스트를 비워 줌
 
+  console.log(searchList);
   clearCard();
 
   searchList.forEach((movie) => {
@@ -149,6 +150,9 @@ const searchResults = async (searchParams) => {
         searchList = movie.known_for;
         searchList.forEach((item) => {
           let movieId = item.id;
+          let media_type = item.media_type;
+
+          console.log(media_type);
           let movieTitle = item.title;
           let voteAverage = item.vote_average.toFixed(2);
           let postImg =
@@ -159,6 +163,8 @@ const searchResults = async (searchParams) => {
 
           if (item.media_type === "movie") {
             makeMovieCard(movieId, postImg, movieTitle, voteAverage, overView);
+          } else if (item.media_type === "tv") {
+            return;
           }
         });
         break;
@@ -185,6 +191,7 @@ const sortCards = (movie_List) => {
 
         case "person":
           searchList = movie.known_for;
+
           searchList.forEach((item) => {
             let movieId = item.id;
             let movieTitle = item.title;
@@ -238,7 +245,7 @@ const sortByReleasedYear = () => {
 
     sortCards(searchList);
   } else if (movieList.length !== 0) {
-    movieListList.sort((a, b) => {
+    movieList.sort((a, b) => {
       if (clickedReleasedDate) {
         return new Date(a.release_date) - new Date(b.release_date);
       } else {
@@ -246,7 +253,7 @@ const sortByReleasedYear = () => {
       }
     });
 
-    sortCards(movieListList);
+    sortCards(movieList);
   }
 };
 
@@ -258,6 +265,7 @@ const sortByTitle = () => {
 
   if (searchList.length !== 0) {
     searchList.sort((a, b) => {
+      console.log(a);
       if (clickedTitle) {
         return a.title.localeCompare(b.title);
       } else {
