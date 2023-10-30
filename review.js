@@ -49,16 +49,16 @@ function showComments() {
             </div>
             </div> 
     </div>
-    <div class="btb1">${Comment.내용}</div>`
+    <div class="btb1">${Comment.content}</div>`
 
         reviewList.appendChild(addComment);
     });
 }
 function deleteComment(index) {
-    let reviewKey = 댓글;
+    let reviewKey = comment;
     let Comment = JSON.parse(localStorage.getItem(reviewKey)) || [];
     let password = prompt('비번입력하세여');
-    if (password === Comment[index].비밀번호) {
+    if (password === Comment[index].password) {
         Comment.splice(index,1);
         localStorage.setItem(reviewKey, JSON.stringify(Comment));
         alert('삭제 완료 !')
@@ -69,11 +69,11 @@ function deleteComment(index) {
 }
 
 function editComment(index){
-    let reviewKey = 댓글;
+    let reviewKey = comment;
     // let Comment = reviewKey[index];
     let Comment = JSON.parse(localStorage.getItem(reviewKey)) || [];
     let 비번 = prompt('비번입력하세여');
-    if (비번 === Comment[index].비밀번호) {
+    if (비번 === Comment[index].password) {
        let edComment= prompt('작성자입력하세여');
        let edPassword= prompt('바꿀비밀번호입력하세용');
        let content= prompt('변경할 내용 입력하세용');
