@@ -257,33 +257,6 @@ const sortByReleasedYear = () => {
   }
 };
 
-/// Sort by Movie Title ///
-let clickedTitle = true;
-
-const sortByTitle = () => {
-  clickedTitle = !clickedTitle;
-
-  if (searchList.length !== 0) {
-    searchList.sort((a, b) => {
-      if (clickedTitle) {
-        return a.title.localeCompare(b.title);
-      } else {
-        return b.title.localeCompare(a.title);
-      }
-    });
-    sortCards(searchList);
-  } else if (movieList.length !== 0) {
-    movieList.sort((a, b) => {
-      if (clickedTitle) {
-        return a.title.localeCompare(b.title);
-      } else {
-        return b.title.localeCompare(a.title);
-      }
-    });
-    sortCards(movieList);
-  }
-};
-
 /// Sort by Rating ///
 let clickedRating = true;
 
