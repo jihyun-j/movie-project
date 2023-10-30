@@ -10,10 +10,12 @@
 .slideimg {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 46rem;
   opacity: 100%;
   border-radius: 23px;
   filter: brightness(50%);
+  object-fit: cover;
+  object-position: 0 calc(50% + -35%);
 }
 .image_title {
   font-family: "Do Hyeon", sans-serif;
@@ -59,6 +61,7 @@
 .slideitem {
   position: absolute;
   opacity: 0;
+  width: 100%;
 }
 ul,
 li {
