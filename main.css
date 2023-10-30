@@ -385,13 +385,15 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
 }
 
 .reviewForm {
-  background-color: #29275a;
-  padding: 30px;
-  width: 80%;
-  max-width: 600px;
-  min-width: 530px;
-  margin: auto;
-  border: solid 1px black;
+    background-color: #29275a;
+    padding: 30px;
+    width: 80%;
+    max-width: 600px;
+    min-width: 530px;
+    margin: auto;
+    border: solid 1px black;
+    background-color: rgba(255, 255, 255, 0.25);
+   
 }
 .reviewForm label {
   font-size: 20px;
@@ -400,19 +402,33 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
 }
 
 .reviewBtn {
-  padding: 10px;
-  margin: 1rem 0 0 0;
-  height: 65px;
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.25);
+    padding: 10px;
+    margin: 1.4rem 0 0 0 ;
+    height: 70px;
+   border-radius: 5px;
+   background-color: rgba(255, 255, 255, 0.25);
+   color: snow;
+}
+.reviewBtn:hover {
+    padding: 10px;
+    margin: 1.4rem 0 0 0 ;
+    height: 80px;
+
+    border-radius: 5px;
+    color: whitesmoke;
+    background-color: skyblue;
+    transition: all 0.7s ;
 }
 
-.formInput {
-  width: 100%;
-  padding: 10px;
-  font-size: 20px;
-  border: 1px solid black;
-  border-radius: 5px;
+ .formInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.formInput:focus{
+    box-shadow: rgba(255, 255, 255, 0.25);;
 }
 .idPw {
   display: flex;
@@ -432,58 +448,73 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
 }
 
 .reviewList {
-  background-color: #29275a;
-  padding: 30px;
-  width: 80%;
-  max-width: 600px;
-  min-width: 530px;
-  margin: 10px auto auto auto;
-  border: solid 1px black;
-  border-radius: 5px;
+
+    background-color: #29275a;
+    padding: 30px;
+    width: 80%;
+    max-width: 600px;
+    min-width: 530px;
+    margin: 10px auto auto auto;
+    border: solid 1px black;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.25);
+    
 }
 
 .dropBtn {
-  background-color: transparent;
-  color: #ffffff;
-
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
+    background-color: transparent;
+    color: #ffffff;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
 }
 .dropdown {
-  position: relative;
-  display: inline-block;
-  border: none;
+    position: relative;
+    display: inline-block;
+    border: none;
+    padding: 20px;
+    font-size: 20px;
+    margin-top: -20px;
+    display: flex;
+    z-index: 2;
+
 }
 
 .dropdown-content {
-  display: none;
-  background-color: transparent;
-  position: absolute;
-  min-width: 100px;
-  left: 10px;
-  z-index: 1;
-  float: inline-start;
+    margin-left: 20px;
+    position: absolute;
+    font-weight: 400;
+    min-width: 20px;
+    opacity: 0;
+    z-index: 1;
 
-  /*다른 요소들보다 앞에 배치*/
+/*다른 요소들보다 앞에 배치*/
 }
 
 .dropdown-content button {
-  color: black;
-  padding: 10px 10px;
-  text-decoration: none;
-  display: block;
-  background-color: gray;
-}
+
+    text-decoration: none;
+    color: rgb(37, 37, 37);
+    font-size: 12px;
+    opacity:1;
+    transition: all 0.5s;
+    flex-grow: 1;
+  }
 
 .dropdown:hover .dropdown-content {
-  display: block;
-  transition: all 0.5s;
+    transition: all 0.5s;
+    opacity:1;
 }
-
-.top1 {
-  display: flex;
-  font-size: 18px;
+.dropdown-content button:hover {
+    background-color: slategray;
+    color: snow;
+    transition: all 0.5s;
+    
+}
+.top1{  
+    display: flex;
+    font-size: 18px;
+    
 }
 
 .listview {

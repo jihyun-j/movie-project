@@ -4,7 +4,7 @@ const imgUrl = `https://image.tmdb.org/t/p/original`;
 
 const searchMultiUrl = `https://api.themoviedb.org/3/search/multi`;
 const emptyImg = `https://s3-us-west-1.amazonaws.com/files.delesign/assets/Not-Found-1.svg`;
-
+let currentMovieId1;
 const options = {
   method: "GET",
   headers: {
@@ -18,6 +18,7 @@ window.addEventListener("load", () => {
   document.querySelector(`#search`).focus();
 });
 // slide();
+let 댓글 = { };
 
 let movieList = [];
 let searchList = [];
@@ -37,9 +38,14 @@ const closeModal = () => {
 };
 
 const infoModalOpen = (movieId) => {
-  document.querySelector("#infoModal").style.display = "block";
-  movieInfo(movieId);
-};
+	document.querySelector('#infoModal').style.display = 'block';
+	movieInfo(movieId);
+	댓글 = movieId;
+    localStorage.setItem(`리뷰_${movieId}`, JSON.stringify(댓글))
+	console.log('리뷰무비id',댓글);
+
+}
+
 
 //모달 닫고 모달안에 있는 input 데이터 초기화
 const scoreModalClose = () => {
