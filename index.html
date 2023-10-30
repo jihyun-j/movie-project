@@ -53,73 +53,47 @@
     </div>
 
     <!-- 영화 정보 -->
-    <div class="container">
-        <div class="modal" id="infoModal">
-            <div class="modalContent">
-                <div class="modalHeader">
-                    <span class="closeBtn" id="closeBtn" onclick="infoModalClose()">
-                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" viewBox="0 0 17 17" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><g></g><path d="M9.207 8.5l6.646 6.646-0.707 0.707-6.646-6.646-6.646 6.646-0.707-0.707 6.646-6.646-6.647-6.646 0.707-0.707 6.647 6.646 6.646-6.646 0.707 0.707-6.646 6.646z"></path></svg>
-                    </span>
-                </div>
-                <div class="modalBody">
-                    <div class="movieInfo">
-                        <div class="moviePoster">
-                            <img src="" alt="">
-                        </div>  
-                        <div class="movieContent">
-                            <div class="movieTitle"></div>
-                            <div class="movieSubInfo">
-                                <span class="movieDate"></span>
-                                <span class="movieRuntime"></span>
-                                <span class="movieAge"></span>
+        <div class="container">
+            <div class="modal" id="infoModal" onkeyup="exitKey(event)">
+                <div class="modalContent">
+                    <div class="modalHeader">
+                        <span class="closeBtn" id="closeBtn" onclick="infoModalClose()"  onkeyup="exitKey(event)">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" viewBox="0 0 17 17" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><g></g><path d="M9.207 8.5l6.646 6.646-0.707 0.707-6.646-6.646-6.646 6.646-0.707-0.707 6.646-6.646-6.647-6.646 0.707-0.707 6.647 6.646 6.646-6.646 0.707 0.707-6.646 6.646z"></path></svg>
+                        </span>
+                    </div>
+                    <div class="modalBody">
+                        <div class="movieInfo">
+                            <div class="moviePoster">
+								<img src="" alt="">
+							</div>
+                            <div class="movieContent">
+                                <div class="movieTitle"></div>
+                                <div class="movieSubInfo">
+                                    <span class="movieDate"></span>
+                                    <span class="movieRuntime"></span>
+                                    <span class="movieAge"></span>
+                                </div>
+                                <div class="overView"></div>
                             </div>
                           <div class="overView"></div>
                         </div>
-                    </div>
-                    <div class="details">
-                        <div class="tabMenu">
-                            <ul class="tab">
-                                <li class="tabList active">상세정보</li>
-                                <li class="tabList">관람평</li>
-                            </ul>
-                            <div class="tabContentWrapper">
-                                <div class="tabContent active">
-                                    <div class="movieGenres">
-                                        장르 : <span></span>
-                                    </div>
-                                    <div></div>
-                                </div>
-                                <div class="tabContent"> 
-                                    <div class="formcontainer">
-                                        <form id="reviewForm" class="reviewForm">
-                                            <div class="reviewInput">
-                                                <div class="idPw">
-                                                    <div class="w-50">
-                                                        <label for="이름">닉네임</label>
-                                                        <input class="formInput" type="text" id="name" name="name" placeholder="닉네임">
-                                                    </div>
-                                                    <div class="w-50">
-                                                        <label for="password">비밀번호</label>
-                                                        <input class="formInput" type="password" id="password" name="password" placeholder="비밀번호">
-                                                    </div>
-                                                </div>
-                                    
-                                                <div class="idPw">
-                                                    <div style="flex-grow: 4";>
-                                                        <div class="w-100" >
-                                                            <label for="content">리뷰 내용</label><br>
-                                                            <textarea class="formInput" type="text" id="content" name="content" placeholder="후기를 작성해주세요!"></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div >
-                                                        <input type="button" class="reviewBtn" value="리뷰 제출" onclick="saveReview()">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <div class="reviewList" id="reviewList">
-                                            <div class="listview" id=""></div>
+                        <div class="details">
+                            <div class="tabMenu">
+                                <ul class="tab">
+                                    <li class="tabList active">상세정보</li>
+                                    <li class="tabList">관람평</li>
+                                </ul>
+                                <div class="tabContentWrapper">
+                                    <div class="tabContent active">
+                                        <div class="movieGenres">
+                                            장르 : <span></span>
                                         </div>
+                                        <div class="movieDirect">
+                                            감독 : <span></span> 
+                                        </div>
+                                        <p>출연</p>
+                                        <ul class="movieActors">
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

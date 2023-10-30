@@ -263,6 +263,7 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
 }
 
 #infoModal.modal .modalContent{
+    width: 50%;
     background: #fff;
     padding: 1.5rem 2rem;
     border-radius: 25px;
@@ -285,6 +286,7 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
 }
 #infoModal.modal .modalContent .modalBody,
 #infoModal.modal .modalContent .modalFooter{
+    width: 100%;
     text-align: center;
 }
 
@@ -339,24 +341,41 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
 }
 #infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper{
     margin-top: 20px;
-    background: green;
-    border-radius: 20px;
+    background: #bdbdbd;
 }
 #infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent {
-    padding: 20px;
-    color: #fff;
+    color: #000;
     font-size: 24px;
     display: none;
+    text-align: left;
+    padding: 1rem 2rem;
 }
 #infoModal.modal .modalContent .modalBody .details .tabMenu .tab .tabList.active {
-    background: green;
-    color: #fff;
+    background: #bdbdbd;
+    color: #000;
     cursor: auto;
 }
 
 #infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent.active {
     display: block;
 }
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent .movieActors{
+  width: 100%;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 0;
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent .movieActors .actorBox{
+  margin: 0 20px 0 0;
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent .movieActors .actorBox .actorImg{
+  width: 150px;
+  height: 200px;
+}
+
 
 /* //준호 */
 

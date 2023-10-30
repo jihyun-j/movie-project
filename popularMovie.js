@@ -22,6 +22,9 @@ window.addEventListener("load", () => {
 let movieList = [];
 let searchList = [];
 
+//키보드 이벤트
+
+
 //모달 보이게
 const scoreModal = () => {
   slide();
@@ -44,9 +47,27 @@ const scoreModalClose = () => {
   document.querySelector("#score").value = ``;
 };
 const infoModalClose = () => {
-  document.querySelector("#infoModal").style.display = "none";
-};
+	document.querySelector('#infoModal').style.display = 'none';
+	clearActorCard()
+}
 
+document.addEventListener('DOMContentLoaded', function () {
+    const infoModal = document.querySelector('#infoModal');
+
+    infoModal.addEventListener('click', (event) => {
+        if (event.target === infoModal) {
+            infoModalClose(); // 모달을 닫는 함수 호출
+        }
+    });
+    const exitKey = (event) => {
+        if (event.key === 'Escape' || event.key === 'Esc') {
+            infoModalClose();
+        }
+    }
+
+    document.addEventListener('keyup', exitKey);
+});
+	
 const makeMovieCard = (movieId, postImg, movieTitle, voteAverage, overView) => {
   const movieCard = document.createElement("div");
 
@@ -65,24 +86,22 @@ const makeMovieCard = (movieId, postImg, movieTitle, voteAverage, overView) => {
 
 //영화 리스트
 fetch(`${url}/popular?language=ko-KR&page=1`, options)
-  .then((response) => response.json())
-  .then((response) => {
-    movieList = response.results;
+	.then(response => response.json())
+	.then(response => {
+		movieList = response.results;
+		response.results.forEach((res) => {
+			let postImg = !res.poster_path ? emptyImg : ` ${imgUrl}${res.poster_path}`;
+			let movieTitle = res.title;
+			let voteAverage = res.vote_average;
+			let overView = res.overview;
 
-    response.results.map((res) => {
-      let postImg =
-        res.poster_path === null ? emptyImg : ` ${imgUrl}${res.poster_path}`;
+			makeMovieCard(res.id, postImg, movieTitle, voteAverage, overView);
+            
+            sortByRating(voteAverage);
+		})
+  	})
+  	.catch(err => console.error(err));
 
-      let movieTitle = res.title;
-      let voteAverage = res.vote_average;
-      let overView = res.overview;
-
-      makeMovieCard(res.id, postImg, movieTitle, voteAverage, overView);
-
-      sortByRating(voteAverage);
-    });
-  })
-  .catch((err) => console.error(err));
 
 // 영화 검색
 const enterKey = (event) => {
@@ -216,130 +235,7 @@ const sortCards = (movie_List) => {
   }
 };
 
-
-// 관람연령 가져오는 함수
-const getMovieAge = (movieId) => {
-  let age;
-  return fetch(`${url}/${movieId}/release_dates`, options)
-    .then((response) => response.json())
-    .then((response) => {
-      response.results.map((res) => {
-        switch (res.iso_3166_1) {
-          case "KR":
-            if (!age) {
-              age = res.release_dates[0].certification;
-            }
-            console.log("KR:", age);
-            return age;
-            break;
-
-          case "US":
-            if (!age) {
-              age = res.release_dates[0].certification;
-            }
-            console.log("US:", age);
-            return age;
-            break;
-          default:
-            break;
-        }
-        console.log(age);
-      });
-      return age;
-    })
-    .catch((err) => console.log(err));
-};
-
-// 장르 가져오는 함수
-const movieGenres = (genres) => {
-  let genresArray = [];
-
-  genres.map((data) => {
-    genresArray = [...genresArray, data.name];
-  });
-  genresArray.join(`,`);
-  document.querySelector(`.tabContent .movieGenres span`).textContent =
-    genresArray;
-};
-
-// 배우 및 감독 정보 가져오는 함수
-const getMovieCredits = (movieId) => {
-  return fetch(`${url}/${movieId}/credits?language=ko-KR`, options)
-    .then((response) => response.json())
-    .then((response) => {
-      response.cast.map((data) => {
-        // console.log(document.querySelector(`.tabContent .movieGenres span`))
-        // document.querySelector(`.tabContent .movieGenres span`).textContent = data.name
-      });
-    })
-    .catch((err) => console.error(err));
-};
-
-const movieInfo = (movieId) => {
-  fetch(`${url}/${movieId}?language=ko-KR&page=1`, options)
-    .then((response) => response.json())
-    .then(async (response) => {
-      console.log(response);
-      let postImg = `${imgUrl}${response.poster_path}`;
-      let movieTitle = response.title;
-      let voteAverage = response.vote_average;
-      let overView = response.overview;
-      let runTime = `${Math.floor(response.runtime / 60)}시간 ${
-        response.runtime % 60
-      }분`;
-      let movieDate = `개봉일 : ${response.release_date}`;
-      let movieAge = await getMovieAge(movieId);
-      // let movieGenres = response.genres;
-      movieGenres(response.genres);
-      getMovieCredits(movieId);
-
-      document.querySelector(`.movieInfo > .moviePoster > img`).src = postImg;
-      document.querySelector(
-        `.movieInfo .movieContent .movieTitle`
-      ).textContent = movieTitle;
-      document.querySelector(
-        `.movieInfo .movieSubInfo .movieDate`
-      ).textContent = movieDate;
-      document.querySelector(
-        `.movieInfo .movieSubInfo .movieRuntime`
-      ).textContent = runTime;
-      document.querySelector(`.movieInfo .movieSubInfo .movieAge`).textContent =
-        movieAge;
-      document.querySelector(`.movieInfo .movieContent .overView`).textContent =
-        overView;
-      document.querySelector(`.movieInfo .movieSubInfo .movieAge`).textContent =
-        movieAge;
-      console.log(movieAge);
-      // response.map((res) => {
-      //
-
-      // })
-
-      const tabList = document.querySelectorAll(`.tabList`);
-      const tabContent = document.querySelectorAll(`.tabContent`);
-
-      console.log(tabList);
-      tabList.forEach((tab, idx) => {
-        tab.addEventListener("click", () => {
-          tabContent.forEach((content) => {
-            content.classList.remove(`active`);
-          });
-          tabList.forEach((list) => {
-            list.classList.remove(`active`);
-          });
-          tabList[idx].classList.add(`active`);
-          tabContent[idx].classList.add(`active`);
-        });
-      });
-    })
-    .catch((err) => console.error(err));
-};
-
-// const tabList = document.querySelectorAll(`.tabList`)
-// const tabContent = document.querySelectorAll(`.tabContent`)
-
-// console.log(tabList)
-/// Sort by Released Date ///
+///
 let clickedReleasedDate = true;
 
 const sortByReleasedYear = () => {
@@ -394,3 +290,120 @@ const sortByRating = () => {
     sortCards(movieList);
   }
 };
+
+
+// 관람연령 가져오는 함수
+const getMovieAge = (movieId) => {
+	return fetch(`${url}/${movieId}/release_dates`, options)
+	.then(response => response.json())
+	.then(response => {
+        let age
+		response.results.forEach((res) => {
+			switch (res.iso_3166_1) {
+				case "KR":
+					if (res.release_dates[res.release_dates.length - 1]) {
+						age =  res.release_dates[res.release_dates.length - 1].certification;
+					}
+			
+				case "US":
+					if (!age) {
+						age = res.release_dates[res.release_dates.length - 1].certification;
+					}
+				default:
+			}
+		})
+		return age;
+	})
+	.catch(err => console.error(err));
+}
+
+// 장르 가져오는 함수
+const movieGenres = (genres) => {
+	const genresArray = genres.map(data => data.name)
+	genresArray.join(`, `)
+	document.querySelector(`.tabContent .movieGenres span`).textContent = genresArray
+
+}
+
+// 배우 및 감독 정보 가져오는 함수
+const getMovieCredits = (movieId) => {
+	return fetch(`${url}/${movieId}/credits?language=ko-KR`, options)
+  .then(response => response.json())
+  .then(response => {
+    
+    let directer = [];
+    let actors = [];
+
+    response.crew.forEach((crewList) => {
+        if(crewList.department === "Directing") {
+            directer.push( crewList.name)
+        }
+    })
+    directer.join(', ')
+    document.querySelector(`.tabContent .movieDirect span`).textContent = directer;
+
+    response.cast.forEach((data) => {
+		const profileImg = data.profile_path ? imgUrl + data.profile_path : emptyImg;
+		makeActorCard(data.name, profileImg);
+    })
+
+}).catch(err => console.error(err));
+}
+
+const makeActorCard = (name, profileImg) =>{
+    const actorBox = document.createElement('li');
+    actorBox.className = 'actorBox';
+    actorBox.innerHTML = `
+    <img class = "actorImg" src="${profileImg}" alt="">
+    <div class = "actorName">${name}</div>
+    `
+    return document.querySelector('.movieActors').appendChild(actorBox)
+}
+const clearActorCard = () =>{
+	const actorBox = document.querySelectorAll('.actorBox')
+	actorBox.forEach(actor => {
+		actor.remove()
+	})
+
+}
+const movieInfo = (movieId) => {
+	fetch(`${url}/${movieId}?language=ko-KR&page=1`, options)
+	  .then(response => response.json())
+	  .then(async response => {
+		let postImg = `${imgUrl}${response.poster_path}`
+		let movieTitle = response.title;
+		let voteAverage = response.vote_average;
+		let overView = response.overview;
+		let runTime = `${Math.floor(response.runtime/60)}시간 ${response.runtime%60}분`;
+		let movieDate = `개봉일 : ${response.release_date}`;
+		let movieAge = await getMovieAge(movieId);
+		movieGenres(response.genres)
+		getMovieCredits(movieId);
+
+		document.querySelector(`.movieInfo > .moviePoster > img`).src = postImg
+		document.querySelector(`.movieInfo .movieContent .movieTitle`).textContent = movieTitle
+		document.querySelector(`.movieInfo .movieSubInfo .movieDate`).textContent = movieDate
+		document.querySelector(`.movieInfo .movieSubInfo .movieRuntime`).textContent = runTime
+		document.querySelector(`.movieInfo .movieSubInfo .movieAge`).textContent = movieAge
+		document.querySelector(`.movieInfo .movieContent .overView`).textContent = overView
+		document.querySelector(`.movieInfo .movieSubInfo .movieAge`).textContent = movieAge
+
+		const tabList = document.querySelectorAll(`.tabList`)
+		const tabContent = document.querySelectorAll(`.tabContent`)
+		tabList.forEach((tab,idx) => {
+			tab.addEventListener("click", () => {
+				tabContent.forEach((content) => {
+					content.classList.remove(`active`)
+				})
+				tabList.forEach((list) => {
+					list.classList.remove(`active`)
+				})
+				tabList[idx].classList.add(`active`)
+				tabContent[idx].classList.add(`active`)
+			})
+		})
+
+	})
+	.catch(err => console.error(err));
+
+}
