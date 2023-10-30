@@ -63,7 +63,7 @@
     </header>
 
 
-    <!-- 슬라이드 추가 -->
+
     <div class="slidebox">
       <!-- <div class="slidebtns">
         <button class="button prev">◀</button>
@@ -71,10 +71,17 @@
       </div> -->
       <ul class="slidelist"></ul>
     </div>
+
+    <!-- Sort 기능 시작 -->
     <div class="sortContainer">
-      <button class="sort" onclick="sortByRating()">평점순</button>
+      <button class="sort byReleasedYear" onclick="sortByReleasedYear()">
+        개봉순
+      </button>
+      <button class="sort byRating" onclick="sortByRating()">평점순</button>
+      <button class="sort byTitle" onclick="sortByTitle()">이름순</button>
     </div>
 
+    <!-- 영화 정보 -->
     <div class="container">
         <div class="modal" id="infoModal">
             <div class="modalContent">
