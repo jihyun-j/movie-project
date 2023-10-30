@@ -265,7 +265,6 @@ const sortByTitle = () => {
 
   if (searchList.length !== 0) {
     searchList.sort((a, b) => {
-      console.log(a);
       if (clickedTitle) {
         return a.title.localeCompare(b.title);
       } else {
