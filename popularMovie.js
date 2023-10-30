@@ -185,7 +185,7 @@ const getMovieAge = (movieId) => {
 		})
 		return age;
 	})
-	.catch(err => console.log(err));
+	.catch(err => console.error(err));
 }
 
 // 장르 가져오는 함수
@@ -214,7 +214,6 @@ const getMovieCredits = (movieId) => {
     document.querySelector(`.tabContent .movieDirect span`).textContent = directer;
 
     response.cast.forEach((data) => {
-        console.log(data.profile_path ,!data.profile_path)
 		const profileImg = data.profile_path ? imgUrl + data.profile_path : emptyImg;
 		makeActorCard(data.name, profileImg);
     })
