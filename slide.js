@@ -8,7 +8,7 @@ const options2 = {
 };
 
 fetch(
-  "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=Ko-Kr&page=1&sort_by=popularity.desc",
+  "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=KO-KR&page=1&sort_by=popularity.desc",
   options2
 )
   .then((response) => response.json())
@@ -44,7 +44,7 @@ fetch(
         mainslide.children[i].classList.remove("opacity");
       }
       mainslide.children[randomIndex].classList.add("opacity");
-    }, 3000);
+    }, 2000);
   })
 
   .catch((err) => console.error(err));
