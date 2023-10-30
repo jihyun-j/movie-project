@@ -44,7 +44,7 @@ fetch(
         mainslide.children[i].classList.remove("opacity");
       }
       mainslide.children[randomIndex].classList.add("opacity");
-    }, 5000);
+    }, 3000);
   })
 
   .catch((err) => console.error(err));
