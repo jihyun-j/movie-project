@@ -1,7 +1,12 @@
 const url = `https://api.themoviedb.org/3/movie`;
+ slide
+const searchUrl = `https://api.themoviedb.org/3/search/movie`;
+const imgUrl = `https://image.tmdb.org/t/p/original`;
+
 const searchMultiUrl = `https://api.themoviedb.org/3/search/multi`;
 const imgUrl = `https://image.tmdb.org/t/p/original`;
 const emptyImg = `https://s3-us-west-1.amazonaws.com/files.delesign/assets/Not-Found-1.svg`;
+
 
 const options = {
   method: "GET",
@@ -15,11 +20,22 @@ const options = {
 window.addEventListener("load", () => {
   document.querySelector(`#search`).focus();
 });
+slide
+
+
 
 let movieList = [];
 
 //모달 보이게
 const scoreModal = () => {
+ slide
+  document.querySelector("#modal").style.display = "block";
+};
+const closeModal = () => {
+  document.querySelector("#modal").style.display = "none";
+  document.querySelector("#score").value = ``;
+};
+
 	document.querySelector('#searchModal').style.display = 'block';
 }
 const infoModalOpen = (movieId) => {
@@ -39,12 +55,18 @@ const infoModalClose = () => {
 const makeMovieCard = (movieId, postImg, movieTitle, voteAverage, overView) => {
   const movieCard = document.createElement("div");
 
+  movieCard.className = "movieCard";
+  movieCard.addEventListener("click", () => alert(`Movie id : ${movieId}`));
+  movieCard.innerHTML = `<div class="moviePoster">
+								<img src=${postImg} alt="">
+
   // 영화 title이 undefined로 나올때 name을 보여준다
   // 영화 포스터가 없을 때 다른 이미지를 보여준다
   movieCard.className = "movieCard";
   movieCard.addEventListener('click', () => infoModalOpen(movieId))
   movieCard.innerHTML = `<div class="moviePoster">
 								<img src=${postImg === null ? emptyImg : postImg} alt="">
+
 							</div>
 							<div class="movieTitle">${movieTitle}</div> 
 							<div class="voteAverage" >🍅 : <span id="voteAverage">${voteAverage}</span></div>
@@ -59,14 +81,21 @@ fetch(`${url}/popular?language=ko-KR&page=1`, options)
   .then((response) => {
     movieList = response.results;
     response.results.map((res) => {
+
+      let postImg = `${imgUrl}${res.poster_path}`;
+
       let postImg =
         res.poster_path === null ? emptyImg : ` ${imgUrl}${res.poster_path}`;
+
       let movieTitle = res.title;
       let voteAverage = res.vote_average;
       let overView = res.overview;
 
       makeMovieCard(res.id, postImg, movieTitle, voteAverage, overView);
+
+
       sortByRating(voteAverage);
+
     });
   })
   .catch((err) => console.error(err));
@@ -80,6 +109,12 @@ const enterKey = (event) => {
 
 const searchQuery = () => {
   const searchParams = document.querySelector("#search").value;
+
+  searchParams ? clearCard() : alert("검색어를 입력해주세요");
+
+  findMovie(searchParams);
+};
+
   document.querySelector("#score").value = ``;
   searchParams ? clearCard() : alert("검색어를 입력해주세요");
 
@@ -120,13 +155,71 @@ const scoreSearch = () => {
 }
 
 
+const scoreSearch = () => {
+  const inputScore = document.querySelector("#score").value;
+  const scoreCheck = document.querySelector(
+    "#scoreCheck > option:checked"
+  ).value;
+
+  const scoreFilter = movieList;
+
+  clearCard();
+  closeModal();
+
+  scoreFilter.filter((res) => {
+    let score = res.vote_average;
+
+    let movieId = res.id;
+    let postImg = `${imgUrl}${res.poster_path}`;
+    let movieTitle = res.title;
+    let overView = res.overview;
+
+    switch (scoreCheck) {
+      case "up":
+        if (score >= inputScore) {
+          makeMovieCard(movieId, postImg, movieTitle, score, overView);
+        }
+        break;
+      case "down":
+        if (score <= inputScore) {
+          makeMovieCard(movieId, postImg, movieTitle, score, overView);
+        }
+        break;
+    }
+  });
+};
+
 const clearCard = () => {
   const cardList = document.querySelectorAll(`.movieCard `);
+
+
+
 
   cardList.forEach((element) => {
     element.remove();
   });
 };
+
+
+const findMovie = (searchParams) => {
+  fetch(
+    `${searchUrl}?query=${searchParams}&include_adult=false&language=ko-KR&page=1`,
+    options
+  )
+    .then((response) => response.json())
+    .then((response) => {
+      response.results.map((res) => {
+        let postImg = `${imgUrl}${res.poster_path}`;
+        let movieTitle = res.title;
+        let voteAverage = res.vote_average;
+        let overView = res.overview;
+
+        makeMovieCard(res.id, postImg, movieTitle, voteAverage, overView);
+      });
+    })
+    .catch((err) => console.error(err));
+};
+
 
 const searchResults = (searchParams) => {
   fetch(
