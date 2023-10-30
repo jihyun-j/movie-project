@@ -1,68 +1,92 @@
-movieInfo
-console.log(movieInfo);
 
-function saveReview() {
+function saveReviewWithMovieId() {
+    const reviewKey = comment;
     const name = document.getElementById('name').value;
     const password = document.getElementById('password').value;
     const content = document.getElementById('content').value;
-    const 작성시간 = new Date().toLocaleString();
+    const time = new Date().toLocaleString();;
 
 
-    let 댓글 = JSON.parse(localStorage.getItem('리뷰') || '[]');
+    let Comment = JSON.parse(localStorage.getItem(reviewKey) || '[]');
 
-    let 입력된댓글 = document.getElementById('content').value;
-
-    if (!입력된댓글) {
+    let add3 = document.getElementById('content').value;
+    let add2 = document.getElementById('password').value;
+    let add1 = document.getElementById('name').value;
+    if (!add1||!add2||!add3) {
         alert('작성창이 빈칸이에요!');
-    } else if (입력된댓글.length > 100) {
-        alert('100글자 이하 입력해주세요!');
+    } else if (add1.length < 1 ||add2.length <3||add3.length <3) {
+        alert('닉네임 2글자이상 패스워드 4글자이상 내용 4글자이상!');
     } else {
         let newComment = {
-            작성자: name,
-            비밀번호: password,
-            내용: content,
-            작성시간: 작성시간
+            name: name,
+            password: password,
+            content: content,
+            time: time
         };
-        댓글.push(newComment);
+        Comment.push(newComment);
 
-        localStorage.setItem('리뷰', JSON.stringify(댓글));
+        localStorage.setItem(reviewKey, JSON.stringify(Comment));
         showComments();
     }
 
 }
 function showComments() {
-    let 새로운리뷰 = JSON.parse(localStorage.getItem('리뷰') || '[]');
-    let 리뷰리스트 = document.getElementById('reviewList');
-    리뷰리스트.innerHTML = '';
-
-    새로운리뷰.forEach(function (댓글, index) {
-        let 추가된리뷰 = document.createElement('div');
-        추가된리뷰.className = 'listview';
-        추가된리뷰.innerHTML = `            <div class="top1">
-        <div style="flex-grow: 1"><strong>${댓글.작성자}</strong></div>
-        <div style="flex-grow: 5">(${댓글.작성시간})</div>
+    let newReview = JSON.parse(localStorage.getItem(comment) || '[]');;
+    let reviewList = document.getElementById('reviewList');
+    reviewList.innerHTML = '';
+    
+    newReview.forEach(function (Comment, index) {
+        let addComment = document.createElement('div');
+        addComment.className = 'listview';
+        addComment.innerHTML = `            <div class="top1">
+        <div style="flex-grow: 1"><strong>${Comment.name}</strong></div>
+        <div style="flex-grow: 5">(${Comment.time})</div>
         <div class="dropdown">
-            <span class="material-symbols-outlined dropBtn">more_vert</span>
+        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M456 231a56 56 0 1 0 112 0 56 56 0 1 0-112 0zm0 280a56 56 0 1 0 112 0 56 56 0 1 0-112 0zm0 280a56 56 0 1 0 112 0 56 56 0 1 0-112 0z"></path></svg>
             <div class="dropdown-content">
                 <button class="editComment" onclick="editComment(${index})">수정</button>
                 <button class="deleteComment" onclick="deleteComment(${index})">삭제</button>
             </div>
             </div> 
     </div>
-    <div class="btb1">${댓글.내용}</div>`
+    <div class="btb1">${Comment.content}</div>`
 
-        리뷰리스트.appendChild(추가된리뷰);
+        reviewList.appendChild(addComment);
     });
 }
 function deleteComment(index) {
-    let 댓글 = JSON.parse(localStorage.getItem('리뷰')) || [];
-    let 비번 = prompt('비번입력하세여');
-    if(비번=== 댓글[index].비밀번호){
-    댓글.splice(index, 1);
-    localStorage.setItem('리뷰', JSON.stringify(댓글));
-    alert('삭제 완료 !')
-    showComments();}
+    let reviewKey = comment;
+    let Comment = JSON.parse(localStorage.getItem(reviewKey)) || [];
+    let password = prompt('비번입력하세여');
+    if (password === Comment[index].password) {
+        Comment.splice(index,1);
+        localStorage.setItem(reviewKey, JSON.stringify(Comment));
+        alert('삭제 완료 !')
+       
+        showComments();
+    }
     else alert('비밀번호 입력해야 지울수 있어요 !')
 }
 
-showComments();
+function editComment(index){
+    let reviewKey = comment;
+    // let Comment = reviewKey[index];
+    let Comment = JSON.parse(localStorage.getItem(reviewKey)) || [];
+    let 비번 = prompt('비번입력하세여');
+    if (비번 === Comment[index].password) {
+       let edComment= prompt('작성자입력하세여');
+       let edPassword= prompt('바꿀비밀번호입력하세용');
+       let content= prompt('변경할 내용 입력하세용');
+        Comment[index].name= edComment ;
+        Comment[index].password= edPassword ;
+        Comment[index].content= content ;
+
+        localStorage.setItem(reviewKey, JSON.stringify(Comment));
+        alert('수정 완료 !')
+        showComments();
+    }
+    else alert('비밀번호 입력해야 수정할수 있어요 !')
+
+}
+
+// showComments();

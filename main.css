@@ -25,7 +25,6 @@
 }
 
 body {
-  max-width: 1200px;
   margin: 0 auto;
   background-color: var(--dark-color);
 }
@@ -39,6 +38,7 @@ form {
 
 /* Header */
 header {
+  max-width: 1200px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -47,8 +47,6 @@ header {
 
 header .logo > img {
   width: 35%;
-}
-header .searchBox {
 }
 
 header .searchBox .searchForm .searchInput {
@@ -196,6 +194,10 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
   to {
     opacity: 1;
   }
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* 영화 리스트 나오는 곳 */

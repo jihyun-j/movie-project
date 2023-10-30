@@ -18,6 +18,7 @@ window.addEventListener("load", () => {
   document.querySelector(`#search`).focus();
 });
 // slide();
+let comment = [];
 
 let movieList = [];
 let searchList = [];
@@ -37,9 +38,13 @@ const closeModal = () => {
 };
 
 const infoModalOpen = (movieId) => {
-  document.querySelector("#infoModal").style.display = "block";
-  movieInfo(movieId);
-};
+	document.querySelector('#infoModal').style.display = 'block';
+	movieInfo(movieId);
+	comment = movieId;
+    localStorage.setItem(`리뷰_${movieId}`, JSON.stringify(comment))
+
+}
+
 
 //모달 닫고 모달안에 있는 input 데이터 초기화
 const scoreModalClose = () => {
@@ -69,21 +74,22 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 	
 const makeMovieCard = (movieId, postImg, movieTitle, voteAverage, overView) => {
-  const movieCard = document.createElement("div");
-
-  movieCard.className = "movieCard";
-  movieCard.addEventListener("click", () => infoModalOpen(movieId));
-  movieCard.innerHTML = `<div class="moviePoster">
-								<img src=${postImg === null ? emptyImg : postImg} alt="">
-
-							</div>
-							<div class="movieTitle">${movieTitle}</div> 
-							<div class="voteAverage" >🍅 : <span id="voteAverage">${voteAverage}</span></div>
-							<div class="overView">${overView}</div>`;
-
-  return document.querySelector("#movieList").appendChild(movieCard);
-};
-
+    const movieCard = document.createElement("div");
+  
+    movieCard.className = "movieCard";
+    movieCard.addEventListener("click", () => infoModalOpen(movieId));
+    movieCard.innerHTML = `<div class="moviePoster">
+                                  <img src=${postImg === null ? emptyImg : postImg} alt="">
+  
+                              </div>
+                              <div class="movieTitle">${movieTitle}</div> 
+                              <div class="voteAverage" >🍅 : <span id="voteAverage">${voteAverage}</span></div>
+                              <div class="overView">${overView}</div>`;
+  
+    return document.querySelector("#movieList").appendChild(movieCard);
+  };
+  
+  
 //영화 리스트
 fetch(`${url}/popular?language=ko-KR&page=1`, options)
 	.then(response => response.json())
@@ -101,6 +107,7 @@ fetch(`${url}/popular?language=ko-KR&page=1`, options)
 		})
   	})
   	.catch(err => console.error(err));
+
 
 
 // 영화 검색
@@ -302,6 +309,9 @@ const getMovieAge = (movieId) => {
 			switch (res.iso_3166_1) {
 				case "KR":
 					if (res.release_dates[res.release_dates.length - 1]) {
+                        if(!res.release_dates[res.release_dates.length - 1].certification ){
+                            break;
+                        }
 						age =  res.release_dates[res.release_dates.length - 1].certification;
 					}
 			
@@ -309,7 +319,12 @@ const getMovieAge = (movieId) => {
 					if (!age) {
 						age = res.release_dates[res.release_dates.length - 1].certification;
 					}
+                case "GB":
+                    if (!age) {
+						age = res.release_dates[res.release_dates.length - 1].certification;
+					}
 				default:
+
 			}
 		})
 		return age;
@@ -390,7 +405,10 @@ const movieInfo = (movieId) => {
 
 		const tabList = document.querySelectorAll(`.tabList`)
 		const tabContent = document.querySelectorAll(`.tabContent`)
-		tabList.forEach((tab,idx) => {
+
+        console.log(tabList)
+        console.log(tabContent)
+        tabList.forEach((tab,idx) => {
 			tab.addEventListener("click", () => {
 				tabContent.forEach((content) => {
 					content.classList.remove(`active`)
@@ -400,9 +418,9 @@ const movieInfo = (movieId) => {
 				})
 				tabList[idx].classList.add(`active`)
 				tabContent[idx].classList.add(`active`)
+				showComments();
 			})
 		})
-
 	})
 	.catch(err => console.error(err));
 
