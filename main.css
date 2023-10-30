@@ -1,3 +1,5 @@
+/* General */
+
 @font-face {
   font-family: "Pretendard-Regular";
   src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
@@ -7,35 +9,13 @@
 }
 
 :root {
-  /* Color Option 1 */
-  --a1: #000000;
-  --a2: #3d0000;
-  --a3: #950101;
-  --a4: #ff0000;
-
-  /* Color Option 2 */
-  --b1: #171717;
-  --b2: #444444;
-  --b3: #da0037;
-  --b4: #ededed;
-
-  /* Color Option 3 */
-  --c1: #2f2519;
-  --c2: #4a3f35;
-  --c3: #fa7d09;
-  --c4: #ff4301;
-
-  /* Color Option 4 */
-  --d1: #1b1a17;
-  --d2: #f0a500;
-  --d3: #e45826;
-  --d4: #e6d5b8;
-
-  /* Color Option 5 */
-  --e1: #08085e;
-  --e2: #a2ef44;
-  --e3: #fff07a;
-  --e4: #e8fcf6;
+  /* Color */
+  --primary-color: #1f99dd;
+  --dark-color: #202020;
+  --white-color: #ffffff;
+  --gray-color: #ccc;
+  --darkgray-color: #666;
+  --red-color: #a51644;
 
   /* Font Size */
 }
@@ -47,13 +27,17 @@
 body {
   max-width: 1200px;
   margin: 0 auto;
-  /* background-color: var(--b1); */
+  background-color: var(--dark-color);
 }
 
-div,input,textarea,form {
-    box-sizing: border-box;
-;
+div,
+input,
+textarea,
+form {
+  box-sizing: border-box;
 }
+
+/* Header */
 header {
   display: flex;
   align-items: center;
@@ -75,7 +59,7 @@ header .searchBox .searchForm .searchInput {
 header .searchBox .searchForm .searchInput input[type="text"] {
   width: 190px;
   border: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--gray-color);
   background: transparent;
   padding: 0 0 5px 10px;
   position: relative;
@@ -87,10 +71,11 @@ header .searchBox .searchForm .searchInput input[type="text"]::placeholder {
 }
 header .searchBox .searchForm .searchInput input[type="text"]:focus {
   outline: none;
+  color: var(--white-color);
 }
 header .searchBox .searchForm .searchInput label {
   position: absolute;
-  color: #aaa;
+  color: var(--gray-color);
   left: 10px;
   font-size: 1rem;
   bottom: 8px;
@@ -101,7 +86,7 @@ header .searchBox .searchForm .searchInput span {
   position: absolute;
   bottom: 0;
   left: 0;
-  background-color: #666;
+  background-color: var(--darkgray-color);
   height: 2px;
   border-radius: 2px;
   transition: 0.5s;
@@ -111,7 +96,7 @@ header .searchBox .searchForm .searchInput input:focus ~ label,
 header .searchBox .searchForm .searchInput input:valid ~ label {
   font-size: 0.8rem;
   bottom: 110%;
-  color: #666;
+  color: var(--darkgray-color);
   font-weight: bold;
 }
 
@@ -119,16 +104,18 @@ header .searchBox .searchForm .searchInput input:focus ~ span,
 header .searchBox .searchForm .searchInput input:valid ~ span {
   width: 100%;
 }
-header .searchBox .searchForm .searchBtn {
+header .searchBox .searchForm .searchBtn,
+.sort {
   cursor: pointer;
-  border: 1px solid #2a2c32;
+  border: 1px solid var(--primary-color);
   padding: 0.5rem 1rem;
-  background-color: #fff;
+  background-color: var(--primary-color);
   border-radius: 20px;
 }
-header .searchBox .searchForm .searchBtn:hover {
-  background-color: #2a2c32;
-  color: #fff;
+header .searchBox .searchForm .searchBtn:hover,
+.sort:hover {
+  background-color: transparent;
+  color: var(--white-color);
 }
 
 header .searchBox .searchForm .modal {
@@ -144,11 +131,11 @@ header .searchBox .searchForm .modal {
 }
 
 header .searchBox .searchForm .modal .modalContent {
-  background: #fff;
+  background: var(--white-color);
   height: 25vh;
   padding: 0 5%;
   border-radius: 25px;
-  box-shadow: 0px 0px 30px 0px #a51644;
+  box-shadow: 0px 0px 30px 0px var(--red-color);
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -162,8 +149,8 @@ header .searchBox .searchForm .modal .modalContent {
 header .searchBox .searchForm .modal .modalContent .modalHeader {
   text-align: right;
 }
-header .searchBox .searchForm .modal .modalContent .modalHeader .closeBtn{
-    cursor: pointer;
+header .searchBox .searchForm .modal .modalContent .modalHeader .closeBtn {
+  cursor: pointer;
 }
 
 header .searchBox .searchForm .modal .modalContent .modalBody,
@@ -179,7 +166,7 @@ header
   .modalBody
   .searchInput
   > input::placeholder {
-  color: #ccc;
+  color: var(--gray-color);
   font-size: 0.7rem;
   text-indent: 20px;
 }
@@ -211,6 +198,7 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
   }
 }
 
+/* 영화 리스트 나오는 곳 */
 .movieList {
   display: flex;
   flex-wrap: wrap;
@@ -234,9 +222,11 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
   font-size: 1.15rem;
   font-weight: 600;
   line-height: 1.5;
+  color: var(--white-color);
 }
 .movieList .movieCard .voteAverage {
   font-weight: 500;
+  color: var(--white-color);
 }
 .movieList .movieCard .overView {
   width: 100%;
@@ -248,118 +238,155 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
   overflow: hidden;
   line-height: 1.7;
   font-weight: 400;
+  color: var(--white-color);
 }
 
-#infoModal.modal{
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw; 
-    height: 100vh; 
-    overflow: auto; 
-    background-color: rgba(0,0,0,0.4); 
-    display: none;
-    z-index: 5;
+/* 상세정보 Modal */
+
+#infoModal.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  z-index: 5;
 }
 
-#infoModal.modal .modalContent{
-    width: 50%;
-    background: #fff;
-    padding: 1.5rem 2rem;
-    border-radius: 25px;
-    box-shadow: 0px 0px 30px 0px #a51644;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: space-evenly;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+#infoModal.modal .modalContent {
+  width: 50%;
+  background: var(--gray-color);
+  padding: 1.5rem 2rem;
+  border-radius: 25px;
+  box-shadow: 0px 0px 30px 0px var(--primary-color);
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-evenly;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-#infoModal.modal .modalContent .modalHeader{
-    text-align: right;
+#infoModal.modal .modalContent .modalHeader {
+  text-align: right;
 }
-#infoModal.modal .modalContent .modalHeader .closeBtn{
-    cursor: pointer;
+#infoModal.modal .modalContent .modalHeader .closeBtn {
+  cursor: pointer;
 }
 #infoModal.modal .modalContent .modalBody,
-#infoModal.modal .modalContent .modalFooter{
-    width: 100%;
-    text-align: center;
+#infoModal.modal .modalContent .modalFooter {
+  width: 100%;
+  text-align: center;
 }
 
-#infoModal.modal .modalContent .modalBody .movieInfo{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+#infoModal.modal .modalContent .modalBody .movieInfo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-#infoModal.modal .modalContent .modalBody .movieInfo .moviePoster{
-    display: inline-block;
-    margin: 0 2rem 0 0;
+#infoModal.modal .modalContent .modalBody .movieInfo .moviePoster {
+  display: inline-block;
+  margin: 0 2rem 0 0;
 }
-#infoModal.modal .modalContent .modalBody .movieInfo .moviePoster > img{
-    max-width: 250px;
-    width: 100%;
+#infoModal.modal .modalContent .modalBody .movieInfo .moviePoster > img {
+  max-width: 250px;
+  width: 100%;
 }
-#infoModal.modal .modalContent .modalBody .movieInfo .movieContent{
-    display: inline-block;
-    text-align: left;
-    width: calc(100% - 285px);
+#infoModal.modal .modalContent .modalBody .movieInfo .movieContent {
+  display: inline-block;
+  text-align: left;
+  width: calc(100% - 285px);
 }
-#infoModal.modal .modalContent .modalBody .movieInfo .movieContent .movieTitle{
-    font-size: 2.5rem;
-    font-weight: bold;
+#infoModal.modal .modalContent .modalBody .movieInfo .movieContent .movieTitle {
+  font-size: 2.5rem;
+  font-weight: bold;
 }
-#infoModal.modal .modalContent .modalBody .movieInfo .movieContent .movieSubInfo {
-    line-height: 1.5;
-    margin: 0 0 5%;
+#infoModal.modal
+  .modalContent
+  .modalBody
+  .movieInfo
+  .movieContent
+  .movieSubInfo {
+  line-height: 1.5;
+  margin: 0 0 5%;
 }
-#infoModal.modal .modalContent .modalBody .movieInfo .movieContent .movieSubInfo .movieAge{
-    border: 1px solid #0c0c0c;
-    padding: 0.1rem 0.2rem 0 0.2rem;
-    border-radius: 2px;
+#infoModal.modal
+  .modalContent
+  .modalBody
+  .movieInfo
+  .movieContent
+  .movieSubInfo
+  .movieAge {
+  border: 1px solid #0c0c0c;
+  padding: 0.1rem 0.2rem 0 0.2rem;
+  border-radius: 2px;
 }
-#infoModal.modal .modalContent .modalBody .details{
-
+#infoModal.modal .modalContent .modalBody .details {
 }
 #infoModal.modal .modalContent .modalBody .details .tabMenu {
-    margin: 2rem auto 0;
+  margin: 2rem auto 0;
 }
 #infoModal.modal .modalContent .modalBody .details .tabMenu .tab {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    padding: 0;
-    
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 0;
 }
 
-#infoModal.modal .modalContent .modalBody .details .tabMenu .tab .tabList{
-    list-style-type: none;
-    cursor: pointer;
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tab .tabList {
+  list-style-type: none;
+  cursor: pointer;
+  font-size: 24px;
 }
-#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper{
-    margin-top: 20px;
-    background: #bdbdbd;
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper {
+  margin-top: 20px;
 }
-#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent {
-    color: #000;
-    font-size: 24px;
-    display: none;
-    text-align: left;
-    padding: 1rem 2rem;
+#infoModal.modal
+  .modalContent
+  .modalBody
+  .details
+  .tabMenu
+  .tabContentWrapper
+  .tabContent {
+  color: var(--dark-color);
+  font-size: 18px;
+  display: none;
+  text-align: left;
+  padding: 1rem 2rem;
 }
-#infoModal.modal .modalContent .modalBody .details .tabMenu .tab .tabList.active {
-    background: #bdbdbd;
-    color: #000;
-    cursor: auto;
+#infoModal.modal
+  .modalContent
+  .modalBody
+  .details
+  .tabMenu
+  .tab
+  .tabList.active {
+  border-bottom: 5px solid var(--primary-color);
+  color: var(--primary-color);
+  cursor: auto;
 }
 
-#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent.active {
-    display: block;
+#infoModal.modal
+  .modalContent
+  .modalBody
+  .details
+  .tabMenu
+  .tabContentWrapper
+  .tabContent.active {
+  display: block;
 }
-#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent .movieActors{
+#infoModal.modal
+  .modalContent
+  .modalBody
+  .details
+  .tabMenu
+  .tabContentWrapper
+  .tabContent
+  .movieActors {
   width: 100%;
   list-style: none;
   display: flex;
@@ -368,146 +395,150 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
   overflow-x: auto;
   padding: 0;
 }
-#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent .movieActors .actorBox{
+#infoModal.modal
+  .modalContent
+  .modalBody
+  .details
+  .tabMenu
+  .tabContentWrapper
+  .tabContent
+  .movieActors
+  .actorBox {
   margin: 0 20px 0 0;
 }
-#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent .movieActors .actorBox .actorImg{
+#infoModal.modal
+  .modalContent
+  .modalBody
+  .details
+  .tabMenu
+  .tabContentWrapper
+  .tabContent
+  .movieActors
+  .actorBox
+  .actorImg {
   width: 150px;
   height: 200px;
 }
 
-
+/* Review 기능 시작 */
 /* //준호 */
 
-.formcontainer{
-    border-radius: 5px;
+.formcontainer {
+  border-radius: 5px;
 }
 .form-background {
-    background-color: black;
-    padding: 30px;
+  background-color: var(--dark-color);
+  padding: 30px;
 }
 
 .reviewForm {
-    background-color: #29275a;
-    padding: 30px;
-    width: 80%;
-    max-width: 600px;
-    min-width: 530px;
-    margin: auto;
-    border: solid 1px black;
-   
+  background-color: var(--primary-color);
+  padding: 30px;
+  width: 80%;
+  max-width: 600px;
+  min-width: 530px;
+  margin: auto;
+  border: solid 1px var(--dark-color);
 }
 .reviewForm label {
-    font-size: 20px;
-    padding: 10px;
-    margin: auto;
+  font-size: 20px;
+  padding: 10px;
+  margin: auto;
 }
 
 .reviewBtn {
-    padding: 10px;
-    margin: 1rem 0 0 0 ;
-    height: 65px;
-   border-radius: 5px;
-   background-color: rgba(255, 255, 255, 0.25);;
-
-
-
+  padding: 10px;
+  margin: 1rem 0 0 0;
+  height: 65px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.25);
 }
 
- .formInput {
-    width: 100%;
-    padding: 10px;
-    font-size: 20px;
-    border: 1px solid black;
-    border-radius: 5px;
-
+.formInput {
+  width: 100%;
+  padding: 10px;
+  font-size: 20px;
+  border: 1px solid var(--dark-color);
+  border-radius: 5px;
 }
-.idPw{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;    
+.idPw {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .w-50 {
-    width: 50%;
-    float: left;
-    padding: 10px;
-
+  width: 50%;
+  float: left;
+  padding: 10px;
 }
 
 .w-100 {
-    width: 100%;
-    padding: 10px;
-
-} 
-
-
+  width: 100%;
+  padding: 10px;
+}
 
 .reviewList {
-
-    background-color: #29275a;
-    padding: 30px;
-    width: 80%;
-    max-width: 600px;
-    min-width: 530px;
-    margin: 10px auto auto auto;
-    border: solid 1px black;
-    border-radius: 5px;
-    
+  background-color: #29275a;
+  padding: 30px;
+  width: 80%;
+  max-width: 600px;
+  min-width: 530px;
+  margin: 10px auto auto auto;
+  border: solid 1px var(--dark-color);
+  border-radius: 5px;
 }
 
 .dropBtn {
-    background-color: transparent;
-    color: #ffffff;
-
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-  }
+  background-color: transparent;
+  color: var(--white-color);
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
 .dropdown {
-    position: relative;
-    display: inline-block;
-    border: none;
-
+  position: relative;
+  display: inline-block;
+  border: none;
 }
 
 .dropdown-content {
-    display: none;
-    background-color: transparent;
-    position: absolute;
-    min-width: 100px;
-    left: 10px;
-    z-index: 1;
-    float: inline-start;
+  display: none;
+  background-color: transparent;
+  position: absolute;
+  min-width: 100px;
+  left: 10px;
+  z-index: 1;
+  float: inline-start;
 
-    /*다른 요소들보다 앞에 배치*/
+  /*다른 요소들보다 앞에 배치*/
 }
 
 .dropdown-content button {
-    color: black;
-    padding: 10px 10px;
-    text-decoration: none;
-    display: block;
-    background-color: gray;
-  }
+  color: var(--dark-color);
+  padding: 10px 10px;
+  text-decoration: none;
+  display: block;
+  background-color: var(--gray-color);
+}
 
 .dropdown:hover .dropdown-content {
-    display: block;
-    transition: all 0.5s;
+  display: block;
+  transition: all 0.5s;
 }
 
-.top1{  
-    display: flex;
-    font-size: 18px;
-    
+.top1 {
+  display: flex;
+  font-size: 18px;
 }
 
-.listview{
-    margin: 10px auto auto auto;
-    border: solid 1px black;
-    padding: 10px;
-    border-radius: 5px;
-    
+.listview {
+  margin: 10px auto auto auto;
+  border: solid 1px var(--dark-color);
+  padding: 10px;
+  border-radius: 5px;
 }
 
-.formcontainer{text-align: left;}
+.formcontainer {
+  text-align: left;
+}

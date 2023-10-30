@@ -20,17 +20,29 @@ fetch(
       let image = i["backdrop_path"];
       let title = i["title"];
       let overview = i["overview"];
+
       let slidelist = ` 
       <li class="slideitem">
+        <img class = "slideimg" src="https://image.tmdb.org/t/p/original${image}" alt="">     
         <div>
-        <img class = "slideimg" 
-        src="https://image.tmdb.org/t/p/original${image}" alt="">     
-        <h1 class = "image_title" >${title}</h1>
-        <p class = "image-overview">${overview}</p>   
-       </div>
+          <h1 class = "image_title" >${title}</h1>
+          <p class = "image-overview">${overview}</p>   
+        </div>
       </li>
     </div>
       `;
+
+      //   let slidelist = `
+      //   <li class="slideitem">
+      //     <div>
+      //     <img class = "slideimg"
+      //     src="https://image.tmdb.org/t/p/original${image}" alt="">
+      //     <h1 class = "image_title" >${title}</h1>
+      //     <p class = "image-overview">${overview}</p>
+      //    </div>
+      //   </li>
+      // </div>
+      //   `;
 
       // let creatediv = document.createElement("div");
       // creatediv.innerHTML = slidelist;
