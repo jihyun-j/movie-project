@@ -31,35 +31,7 @@
           <button type="submit" class="searchBtn" onclick="searchQuery()">
             검색
           </button>
-          <button class="searchBtn" onclick="scoreModal()">🍅 검색</button>
-          <div class="modal" id="modal">
-            <div class="modalContent">
-              <div class="modalHeader">
-                <span class="closeBtn" id="closeBtn" onclick="closeModal()">
-                  <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" viewBox="0 0 17 17" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><g></g><path d="M9.207 8.5l6.646 6.646-0.707 0.707-6.646-6.646-6.646 6.646-0.707-0.707 6.646-6.646-6.647-6.646 0.707-0.707 6.647 6.646 6.646-6.646 0.707 0.707-6.646 6.646z"></path></svg>
-                  </span
-                >
-              </div>
-              <div class="modalBody">
-                <div class="searchInput">
-                  <input
-                    type="text"
-                    id="score"
-                    required
-                    placeholder="&nbsp;&nbsp;토마토점수를 입력해주세요!" />
-                  <label for="score">🍅</label>
-                  <span></span>
-                </div>
-                <select name="scoreCheck" id="scoreCheck">
-                  <option value="up">이상</option>
-                  <option value="down">이하</option>
-                </select>
-              </div>
-              <div class="modalFooter">
-                <button class="searchBtn" onclick="scoreSearch()">확인</button>
-              </div>
-            </div>
-          </div>
+        </div>
     </header>
 
 
@@ -71,10 +43,16 @@
       </div> -->
       <ul class="slidelist"></ul>
     </div>
-    <div class="sortContainer">
-      <button class="sort" onclick="sortByRating()">평점순</button>
+
+    <!-- Sort 기능  -->
+    <div class="sortContainer container">
+      <button class="sort byReleasedYear" onclick="sortByReleasedYear()">
+        개봉순
+      </button>
+      <button class="sort byRating" onclick="sortByRating()">평점순</button>
     </div>
 
+    <!-- 영화 정보 -->
     <div class="container">
         <div class="modal" id="infoModal">
             <div class="modalContent">

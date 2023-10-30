@@ -5,21 +5,55 @@
   font-weight: 400;
   font-style: normal;
 }
+
+:root {
+  /* Color Option 1 */
+  --a1: #000000;
+  --a2: #3d0000;
+  --a3: #950101;
+  --a4: #ff0000;
+
+  /* Color Option 2 */
+  --b1: #171717;
+  --b2: #444444;
+  --b3: #da0037;
+  --b4: #ededed;
+
+  /* Color Option 3 */
+  --c1: #2f2519;
+  --c2: #4a3f35;
+  --c3: #fa7d09;
+  --c4: #ff4301;
+
+  /* Color Option 4 */
+  --d1: #1b1a17;
+  --d2: #f0a500;
+  --d3: #e45826;
+  --d4: #e6d5b8;
+
+  /* Color Option 5 */
+  --e1: #08085e;
+  --e2: #a2ef44;
+  --e3: #fff07a;
+  --e4: #e8fcf6;
+
+  /* Font Size */
+}
+
 * {
   font-family: "Pretendard-Regular";
 }
+
 body {
   max-width: 1200px;
   margin: 0 auto;
+  /* background-color: var(--b1); */
 }
-div,
-input,
-textarea,
-form {
+
+div,input,textarea,form {
     box-sizing: border-box;
 ;
 }
-
 header {
   display: flex;
   align-items: center;
