@@ -259,31 +259,20 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
   font-weight: 400;
 }
 
-#infoModal.modal {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: none;
-  z-index: 5;
-}
-
-#infoModal.modal .modalContent {
-  background: #fff;
-  padding: 1.5rem 2rem;
-  border-radius: 25px;
-  box-shadow: 0px 0px 30px 0px #a51644;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: space-evenly;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+#infoModal.modal .modalContent{
+    width: 50%;
+    background: #fff;
+    padding: 1.5rem 2rem;
+    border-radius: 25px;
+    box-shadow: 0px 0px 30px 0px #a51644;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #infoModal.modal .modalContent .modalHeader {
@@ -293,8 +282,9 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
   cursor: pointer;
 }
 #infoModal.modal .modalContent .modalBody,
-#infoModal.modal .modalContent .modalFooter {
-  text-align: center;
+#infoModal.modal .modalContent .modalFooter{
+    width: 100%;
+    text-align: center;
 }
 
 #infoModal.modal .modalContent .modalBody .movieInfo {
@@ -319,22 +309,11 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
   font-size: 2.5rem;
   font-weight: bold;
 }
-#infoModal.modal
-  .modalContent
-  .modalBody
-  .movieInfo
-  .movieContent
-  .movieSubInfo {
+#infoModal.modal .modalContent .modalBody .movieInfo .movieContent .movieSubInfo {
   line-height: 1.5;
   margin: 0 0 5%;
 }
-#infoModal.modal
-  .modalContent
-  .modalBody
-  .movieInfo
-  .movieContent
-  .movieSubInfo
-  .movieAge {
+#infoModal.modal .modalContent .modalBody .movieInfo .movieContent .movieSubInfo .movieAge {
   border: 1px solid #0c0c0c;
   padding: 0.1rem 0.2rem 0 0.2rem;
   border-radius: 2px;
@@ -355,44 +334,45 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
   list-style-type: none;
   cursor: pointer;
 }
-#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper {
+
+
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper{
   margin-top: 20px;
-  background: green;
-  border-radius: 20px;
+  background: #bdbdbd;
 }
-#infoModal.modal
-  .modalContent
-  .modalBody
-  .details
-  .tabMenu
-  .tabContentWrapper
-  .tabContent {
-  padding: 20px;
-  color: #fff;
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent {
+  color: #000;
   font-size: 24px;
   display: none;
+  text-align: left;
+  padding: 1rem 2rem;
 }
-#infoModal.modal
-  .modalContent
-  .modalBody
-  .details
-  .tabMenu
-  .tab
-  .tabList.active {
-  background: green;
-  color: #fff;
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tab .tabList.active {
+  background: #bdbdbd;
+  color: #000;
   cursor: auto;
 }
 
-#infoModal.modal
-  .modalContent
-  .modalBody
-  .details
-  .tabMenu
-  .tabContentWrapper
-  .tabContent.active {
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent.active {
   display: block;
 }
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent .movieActors{
+  width: 100%;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 0;
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent .movieActors .actorBox{
+  margin: 0 20px 0 0;
+}
+#infoModal.modal .modalContent .modalBody .details .tabMenu .tabContentWrapper .tabContent .movieActors .actorBox .actorImg{
+  width: 150px;
+  height: 200px;
+}
+
 
 /* //준호 */
 
@@ -516,3 +496,4 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
 .formcontainer {
   text-align: left;
 }
+
