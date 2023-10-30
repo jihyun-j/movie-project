@@ -199,6 +199,11 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
 }
 
 /* 영화 리스트 나오는 곳 */
+.sortContainer {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
 .movieList {
   display: flex;
   flex-wrap: wrap;
@@ -496,6 +501,7 @@ header .searchBox .searchForm .modal .modalContent .modalBody #scoreCheck {
   border: none;
   cursor: pointer;
 }
+
 .dropdown {
   position: relative;
   display: inline-block;
