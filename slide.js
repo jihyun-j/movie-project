@@ -6,7 +6,6 @@ const options2 = {
       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMTFkYzVlZGU3M2I0YzdkOTkzMjFkNDA0MTE2YjVlOSIsInN1YiI6IjY1MzA4OWY2OTQ1ZDM2MDEwYzM1YjQzYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.i5MmyxAS9JKVxACccWkvKjFLsa4ULu9ZrpNNyXhDgvE",
   },
 };
-
 fetch(
   "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=KO-KR&page=1&sort_by=popularity.desc",
   options2
@@ -20,36 +19,22 @@ fetch(
       let image = i["backdrop_path"];
       let title = i["title"];
       let overview = i["overview"];
-
-      let slidelist = ` 
+      let slidelist = `
       <li class="slideitem">
-        <img class = "slideimg" src="https://image.tmdb.org/t/p/original${image}" alt="">     
-        <div>
-          <h1 class = "image_title" >${title}</h1>
-          <p class = "image-overview">${overview}</p>   
-        </div>
+        <div class = "img-container">
+        <img class = "slideimg"
+        src="https://image.tmdb.org/t/p/original${image}" alt="">    
+        <h1 class = "image_title" >${title}</h1>
+        <p class = "image-overview">${overview}</p>  
+       </div>
       </li>
     </div>
       `;
-
-      //   let slidelist = `
-      //   <li class="slideitem">
-      //     <div>
-      //     <img class = "slideimg"
-      //     src="https://image.tmdb.org/t/p/original${image}" alt="">
-      //     <h1 class = "image_title" >${title}</h1>
-      //     <p class = "image-overview">${overview}</p>
-      //    </div>
-      //   </li>
-      // </div>
-      //   `;
-
       // let creatediv = document.createElement("div");
       // creatediv.innerHTML = slidelist;
       // mainslide.append(creatediv);
       mainslide.innerHTML += slidelist;
     });
-
     setInterval(function () {
       let randomIndex = Math.floor(Math.random() * mainslide.children.length);
       for (i = 0; i < mainslide.children.length; i++) {
@@ -58,5 +43,4 @@ fetch(
       mainslide.children[randomIndex].classList.add("opacity");
     }, 2000);
   })
-
   .catch((err) => console.error(err));
